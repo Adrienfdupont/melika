@@ -2,33 +2,61 @@
 	import Header from '$lib/Header.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { extractedData } from '$lib/types/extractedData';
+	import type { Word } from '$lib/types/word';
+	import type { Page } from '$lib/types/page';
 
 	export let data: PageData;
+	let isDataLoaded = false;
+	const words: Word[] = [];
 
-	function extractWordData(html: string): extractedData {
-		const htmlDOM = new DOMParser().parseFromString(html, 'text/html');
-
+	function extractWordData(page: Page): Word {
+		const htmlDOM = new DOMParser().parseFromString(page.content, 'text/html');
 		const definitionItems = htmlDOM.querySelector('ol')?.querySelectorAll('li');
 		const definitions: string[] = [];
+
 		definitionItems?.forEach((item) => {
-			if (item.textContent) definitions.push(item.textContent);
+			item.childNodes.forEach((child) => {
+				if (child.nodeName === 'A') {
+					definitions.push(child.textContent ?? '');
+				}
+			});
 		});
 
 		return {
-			pronunciation: htmlDOM.querySelector('.headword-tr')?.textContent ?? null,
+			target: page.targetWord,
+			match: page.matchedWord,
+			pronunciation: htmlDOM.querySelector('.headword-tr')?.textContent ?? '',
 			definitions
 		};
 	}
 
 	onMount(async () => {
-		console.log(data.translation);
-
-		data.wordData.forEach((word) => {
-			if (word.page) word.extractedData = extractWordData(word.page);
+		data.pages.forEach((page) => {
+			words.push(extractWordData(page));
 		});
-		console.log(data.wordData);
+		isDataLoaded = true;
 	});
 </script>
 
 <Header />
+
+<main>
+	<p>{data.input}</p>
+	<p>{data.translation}</p>
+
+	<br />
+
+	{#if isDataLoaded}
+		{#each words as word}
+			<section>
+				<p>{word.match} <span>({word.pronunciation})</span></p>
+				<ol>
+					{#each word.definitions as definition, i}
+						<li><span>{i + 1}. </span>{definition}</li>
+					{/each}
+				</ol>
+			</section>
+			<br />
+		{/each}
+	{/if}
+</main>
