@@ -1,4 +1,4 @@
-import type { Page } from '$lib/types/page';
+import type { Page } from '$lib/types/Page';
 import type { PageServerLoad } from './$types';
 import translate from 'translate';
 

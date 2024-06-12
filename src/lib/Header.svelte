@@ -8,7 +8,7 @@
 	}
 </script>
 
-<header class="m-2">
+<header class="p-2">
 	<div class="flex items-center gap-2">
 		<input
 			bind:value={textToSearch}

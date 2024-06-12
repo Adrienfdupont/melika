@@ -2,8 +2,9 @@
 	import Header from '$lib/Header.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
-	import type { Word } from '$lib/types/word';
-	import type { Page } from '$lib/types/page';
+	import type { Word } from '$lib/types/Word';
+	import type { Page } from '$lib/types/Page';
+	import WordSection from '$lib/WordSection.svelte';
 
 	export let data: PageData;
 	let isDataLoaded = false;
@@ -40,23 +41,15 @@
 
 <Header />
 
-<main>
-	<p>{data.input}</p>
-	<p>{data.translation}</p>
+<div class="p-2">
+	<p class="text-3xl">{data.input}</p>
+	<p class="text-3xl">{data.translation}</p>
 
 	<br />
 
 	{#if isDataLoaded}
 		{#each words as word}
-			<section>
-				<p>{word.match} <span>({word.pronunciation})</span></p>
-				<ol>
-					{#each word.definitions as definition, i}
-						<li><span>{i + 1}. </span>{definition}</li>
-					{/each}
-				</ol>
-			</section>
-			<br />
+			<WordSection {word} />
 		{/each}
 	{/if}
-</main>
+</div>
