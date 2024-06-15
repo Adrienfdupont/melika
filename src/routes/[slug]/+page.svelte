@@ -41,15 +41,19 @@
 
 <Header />
 
-<div class="p-2">
-	<p class="text-3xl">{data.input}</p>
-	<p class="text-3xl">{data.translation}</p>
+<div class="p-2 flex flex-col gap-y-8">
+	<section class="text-2xl">
+		<p>{data.input}</p>
+		<p>{data.translation}</p>
+	</section>
 
-	<br />
-
-	{#if isDataLoaded}
-		{#each words as word}
-			<WordSection {word} />
-		{/each}
-	{/if}
+	<section>
+		{#if isDataLoaded}
+			<table>
+				{#each words as word}
+					<WordSection {word} />
+				{/each}
+			</table>
+		{/if}
+	</section>
 </div>
