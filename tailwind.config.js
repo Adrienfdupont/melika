@@ -4,7 +4,8 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				'custom-purple': '#14132B'
+				'primary': '#592D68',
+				'secondary': '#14132B'
 			}
 		}
 	},
