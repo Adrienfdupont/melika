@@ -26,22 +26,24 @@
 
 <Header />
 
-<div class="p-2 flex flex-col gap-y-8">
-	<section class="text-2xl p-2 relative pr-4 bg-primary">
+<main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-1/3 xl:flex-row-reverse xl:justify-between">
+	<div>
+		<section class="text-2xl p-2 relative pr-12 bg-primary xl:min-w-96">
 		<p>{data.input}</p>
 		<p id="textToSearch">{data.translation}</p>
 		<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
 			<img src={copy} alt="Copy translation to clipboard" />
 		</button>
-	</section>
+		</section>
+	</div>
 
-	<section>
-		{#if isDataLoaded}
+	{#if isDataLoaded}
+		<section>
 			<table>
 				{#each words as word}
 					<WordSection {word} />
 				{/each}
 			</table>
-		{/if}
-	</section>
-</div>
+		</section>
+	{/if}
+</main>
