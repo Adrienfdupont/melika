@@ -3,32 +3,17 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import type { Word } from '$lib/types/Word';
-	import type { Page } from '$lib/types/Page';
 	import WordSection from '$lib/WordSection.svelte';
+	import copy from '$lib/assets/copy.svg';
+	import { extractWordData, fadeButton } from '$lib/utils';
 
 	export let data: PageData;
 	let isDataLoaded = false;
 	const words: Word[] = [];
 
-	function extractWordData(page: Page): Word {
-		const htmlDOM = new DOMParser().parseFromString(page.content, 'text/html');
-		const definitionItems = htmlDOM.querySelector('ol')?.querySelectorAll('li');
-		const definitions: string[] = [];
-
-		definitionItems?.forEach((item) => {
-			item.childNodes.forEach((child) => {
-				if (child.nodeName === 'A') {
-					definitions.push(child.textContent ?? '');
-				}
-			});
-		});
-
-		return {
-			target: page.targetWord,
-			match: page.matchedWord,
-			pronunciation: htmlDOM.querySelector('.headword-tr')?.textContent ?? '',
-			definitions
-		};
+	function copyTranslationToClipboard() {
+		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
+		fadeButton(document.querySelector('#copy-button'));
 	}
 
 	onMount(async () => {
@@ -41,19 +26,24 @@
 
 <Header />
 
-<div class="p-2 flex flex-col gap-y-8">
-	<section class="text-2xl">
+<main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-1/3 xl:flex-row-reverse xl:justify-between">
+	<div>
+		<section class="text-2xl p-2 relative pr-12 bg-primary xl:min-w-96">
 		<p>{data.input}</p>
-		<p>{data.translation}</p>
-	</section>
+		<p id="textToSearch">{data.translation}</p>
+		<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
+			<img src={copy} alt="Copy translation to clipboard" />
+		</button>
+		</section>
+	</div>
 
-	<section>
-		{#if isDataLoaded}
+	{#if isDataLoaded}
+		<section>
 			<table>
 				{#each words as word}
 					<WordSection {word} />
 				{/each}
 			</table>
-		{/if}
-	</section>
-</div>
+		</section>
+	{/if}
+</main>
