@@ -6,6 +6,16 @@ export default {
 			colors: {
 				'primary': '#592D68',
 				'secondary': '#14132B'
+			},
+			animation: {
+				'fade': 'fade 0.3s ease-in forwards',
+			},
+			keyframes: {
+				fade: {
+					'0%': { opacity: 1 },
+					'50%': { opacity: 0.5 },
+					'100%': { opacity: 1 },
+				},
 			}
 		}
 	},
