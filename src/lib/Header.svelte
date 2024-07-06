@@ -13,7 +13,7 @@
 	}
 </script>
 
-<header class="p-2 container mx-auto lg:w-2/3 xl:w-1/2">
+<header class="p-2 container mx-auto lg:w-2/3 xl:w-1/2 sticky top-0 left-0 z-10 bg-secondary">
 	<div class="flex items-center gap-2">
 		<a href="/"><img src={home} alt="Home" class="h-10" /> </a>
 		<input

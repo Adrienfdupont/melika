@@ -1,5 +1,6 @@
 import type { Page } from '$lib/types/Page';
 import type { Word } from '$lib/types/Word';
+import type { HistoryResearch } from '$lib/types/HistoryResearch';
 
 export function extractWordData(page: Page): Word {
 	const htmlDOM = new DOMParser().parseFromString(page.content, 'text/html');
@@ -31,3 +32,24 @@ export function fadeButton(button: HTMLButtonElement) {
 	}, 10);
 }
 
+export function addTranslationToHistory(input: string, translation: string) {
+	const history = getTranslationHistory();
+	if (!history.some((research: HistoryResearch) => research.input === input)) {
+		if (history.length >= 50) {
+			history.shift();
+		}
+		history.push({ input, translation });
+		localStorage.setItem('translationHistory', JSON.stringify(history));
+	}
+}
+
+export function getTranslationHistory(): HistoryResearch[] {
+	const history = localStorage.getItem('translationHistory');
+	return history ? JSON.parse(history).reverse() : [];
+}
+
+export function extendCard(event: MouseEvent) {
+	const target = event.target as HTMLElement;
+	const cardP = target.closest('button')?.querySelectorAll('p');
+	cardP?.forEach(p => p.classList.toggle('whitespace-nowrap'));
+}

@@ -5,7 +5,7 @@
 	import type { Word } from '$lib/types/Word';
 	import WordSection from '$lib/WordSection.svelte';
 	import copy from '$lib/assets/copy.svg';
-	import { extractWordData, fadeButton } from '$lib/utils';
+	import { extractWordData, fadeButton, addTranslationToHistory } from '$lib/utils';
 
 	export let data: PageData;
 	let isDataLoaded = false;
@@ -21,6 +21,7 @@
 			words.push(extractWordData(page));
 		});
 		isDataLoaded = true;
+		addTranslationToHistory(data.input, data.translation);
 	});
 </script>
 
