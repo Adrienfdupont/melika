@@ -18,7 +18,6 @@ export const load: PageServerLoad = async ({ params }) => {
 				const match = regex.exec(rawPage);
 				if (match) {
 					const page: Page = {
-						targetWord: word,
 						matchedWord: pattern,
 						content: match[1]
 					};
