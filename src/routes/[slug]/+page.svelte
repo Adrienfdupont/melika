@@ -40,7 +40,7 @@
 
 	{#if isDataLoaded}
 		<section>
-			<table>
+			<table class="w-full">
 				{#each words as word}
 					<WordSection {word} />
 				{/each}
