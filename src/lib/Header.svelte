@@ -1,6 +1,5 @@
 <script lang="ts">
 	import search from '$lib/assets/search.svg';
-	import home from '$lib/assets/home.svg';
 	import { fadeButton } from '$lib/utils';
 
 	let textToSearch: string;
@@ -8,14 +7,13 @@
 	function research() {
 		fadeButton(document.querySelector('#search-button'));
 		if (textToSearch.length) {
-			window.location.href = `/${textToSearch}`;
+			window.location.href = `/search/${textToSearch}`;
 		}
 	}
 </script>
 
-<header class="sticky top-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
+<header class="fixed top-0 left-0 right-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
 	<div class="flex items-center gap-2 h-16 p-2">
-		<a href="/"><img src={home} alt="Home" class="h-10" /> </a>
 		<input
 			bind:value={textToSearch}
 			on:keydown={(e) => e.key === 'Enter' && research()}

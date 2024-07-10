@@ -6,6 +6,7 @@
 	import WordSection from '$lib/WordSection.svelte';
 	import copy from '$lib/assets/copy.svg';
 	import { extractWordData, fadeButton, addTranslationToHistory } from '$lib/utils';
+	import Navigation from '$lib/Navigation.svelte';
 
 	export let data: PageData;
 	let isDataLoaded = false;
@@ -27,24 +28,28 @@
 
 <Header />
 
-<main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-1/3 xl:flex-row-reverse xl:justify-between">
-	<div>
-		<section class="text-2xl p-2 relative pr-12 bg-primary xl:min-w-96">
-		<p>{data.input}</p>
-		<p id="textToSearch">{data.translation}</p>
-		<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
-			<img src={copy} alt="Copy translation to clipboard" />
-		</button>
-		</section>
-	</div>
+<main class="fixed top-16 bottom-12 left-0 right-0 overflow-y-scroll">
+	<div class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-1/3 xl:flex-row-reverse xl:justify-between">
+		<div>
+			<section class="text-2xl p-2 relative pr-12 bg-primary xl:min-w-96">
+				<p>{data.input}</p>
+				<p id="textToSearch">{data.translation}</p>
+				<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
+					<img src={copy} alt="Copy translation to clipboard" />
+				</button>
+			</section>
+		</div>
 
-	{#if isDataLoaded}
-		<section>
-			<table class="w-full">
-				{#each words as word}
-					<WordSection {word} />
-				{/each}
-			</table>
-		</section>
-	{/if}
+		{#if isDataLoaded}
+			<section>
+				<table class="w-full">
+					{#each words as word}
+						<WordSection {word} />
+					{/each}
+				</table>
+			</section>
+		{/if}
+	</div>
 </main>
+
+<Navigation />
