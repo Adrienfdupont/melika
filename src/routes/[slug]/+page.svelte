@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Header from '$lib/Header.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import type { Word } from '$lib/types/Word';
-	import WordSection from '$lib/WordSection.svelte';
-	import copy from '$lib/assets/copy.svg';
+	import WordSection from '$lib/components/WordSection.svelte';
 	import { extractWordData, fadeButton, addTranslationToHistory } from '$lib/utils';
+	import Icon from '@iconify/svelte';
 
 	export let data: PageData;
 	let isDataLoaded = false;
@@ -33,7 +33,7 @@
 		<p>{data.input}</p>
 		<p id="textToSearch">{data.translation}</p>
 		<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
-			<img src={copy} alt="Copy translation to clipboard" />
+			<Icon icon="mdi:content-copy" />
 		</button>
 		</section>
 	</div>
