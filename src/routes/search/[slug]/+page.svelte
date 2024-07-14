@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
-	import type { PageData } from '../../../../.svelte-kit/types/src/routes';
+	import type { PageData } from './$types';
 	import type { Word } from '$lib/types/Word';
 	import WordSection from '$lib/components/WordSection.svelte';
 	import { extractWordData, fadeButton, addTranslationToHistory } from '$lib/utils';
