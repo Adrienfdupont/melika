@@ -7,7 +7,7 @@
 	function research() {
 		fadeButton(document.querySelector('#search-button'));
 		if (textToSearch.length) {
-			window.location.href = `/${textToSearch}`;
+			window.location.href = `/search/${textToSearch}`;
 		}
 		document.querySelector('#spinner-modal').classList.remove('hidden');
 		document.body.style.overflow = 'hidden';
