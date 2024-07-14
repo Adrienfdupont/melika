@@ -14,7 +14,7 @@
 
 <header class="sticky top-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
 	<div class="flex items-center gap-2 h-16 p-2">
-		<a href="/static">
+		<a href="/">
 			<Icon icon="mdi:home-outline" class="text-4xl"/>
 		</a>
 		<input
