@@ -1,7 +1,6 @@
 <script lang="ts">
-	import search from '$lib/assets/search.svg';
-	import home from '$lib/assets/home.svg';
 	import { fadeButton } from '$lib/utils';
+	import Icon from '@iconify/svelte';
 
 	let textToSearch: string;
 
@@ -15,7 +14,9 @@
 
 <header class="sticky top-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
 	<div class="flex items-center gap-2 h-16 p-2">
-		<a href="/"><img src={home} alt="Home" class="h-10" /> </a>
+		<a href="/static">
+			<Icon icon="mdi:home-outline" class="text-4xl"/>
+		</a>
 		<input
 			bind:value={textToSearch}
 			on:keydown={(e) => e.key === 'Enter' && research()}
@@ -23,6 +24,8 @@
 			placeholder="Translate into Persian..."
 			class="bg-transparent border-white border-2 rounded-full w-full h-full px-4 outline-none"
 		/>
-		<button id="search-button" on:click={research}><img src={search} alt="Search" class="h-10" /> </button>
+		<button id="search-button" on:click={research}>
+			<Icon icon="mdi:search"  class="text-3xl"/>
+		</button>
 	</div>
 </header>
