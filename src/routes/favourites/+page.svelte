@@ -16,7 +16,7 @@
 <Header />
 
 <main class="fixed top-16 bottom-12 left-0 right-0 overflow-y-scroll">
-	<div>
+	<div class="container mx-auto lg:w-2/3 xl:w-1/2"	>
 		{#each favouriteWords as word}
 			<FavouriteCard {word} on:remove={() => {favouriteWords = getFavourites()}}/>
 		{/each}
