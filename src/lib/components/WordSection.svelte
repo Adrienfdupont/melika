@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from './types/Word';
+	import type { Word } from '../types/Word';
 	import Icon from '@iconify/svelte';
 	import { addWordToFavourites, removeWordFromFavourites, wordIsInFavourites } from '$lib/utils';
 
