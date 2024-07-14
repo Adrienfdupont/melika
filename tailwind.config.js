@@ -9,6 +9,7 @@ export default {
 			},
 			animation: {
 				'fade': 'fade 0.3s ease-in forwards',
+				'spin': 'spin 1s linear infinite'
 			},
 			keyframes: {
 				fade: {
@@ -16,6 +17,10 @@ export default {
 					'50%': { opacity: 0.5 },
 					'100%': { opacity: 1 },
 				},
+				spin: {
+					'0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+					'100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+				}
 			}
 		}
 	},

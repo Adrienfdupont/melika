@@ -9,6 +9,8 @@
 		if (textToSearch.length) {
 			window.location.href = `/${textToSearch}`;
 		}
+		document.querySelector('#spinner-modal').classList.remove('hidden');
+		document.body.style.overflow = 'hidden';
 	}
 </script>
 
@@ -29,3 +31,10 @@
 		</button>
 	</div>
 </header>
+
+<div id="spinner-modal" class="fixed inset-0 bg-black opacity-50 z-20 hidden">
+	<div
+		class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full h-32 w-32 border-8 border-t-secondary animate-spin"
+	>
+	</div>
+</div>
