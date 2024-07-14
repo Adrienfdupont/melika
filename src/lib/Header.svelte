@@ -13,15 +13,15 @@
 	}
 </script>
 
-<header class="p-2 container mx-auto lg:w-2/3 xl:w-1/2">
-	<div class="flex items-center gap-2">
+<header class="sticky top-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
+	<div class="flex items-center gap-2 h-16 p-2">
 		<a href="/"><img src={home} alt="Home" class="h-10" /> </a>
 		<input
 			bind:value={textToSearch}
 			on:keydown={(e) => e.key === 'Enter' && research()}
 			type="text"
 			placeholder="Translate into Persian..."
-			class="bg-transparent border-white border-2 rounded-full w-full h-10 px-4 outline-none"
+			class="bg-transparent border-white border-2 rounded-full w-full h-full px-4 outline-none"
 		/>
 		<button id="search-button" on:click={research}><img src={search} alt="Search" class="h-10" /> </button>
 	</div>

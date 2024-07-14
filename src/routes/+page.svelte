@@ -1,9 +1,60 @@
-<script>
+<script lang="ts">
 	import Header from '$lib/Header.svelte';
+	import { getFavourites, getTranslationHistory } from '$lib/utils';
+	import HistoryCard from '$lib/HistoryCard.svelte';
+	import { onMount } from 'svelte';
+	import type { HistoryResearch } from '$lib/types/HistoryResearch';
+	import Icon from '@iconify/svelte';
+	import type { Word } from '$lib/types/Word';
+	import FavouriteCard from '$lib/FavouriteCard.svelte';
+
+	let historyResearches: HistoryResearch[] = [];
+	let favouriteWords: Word[] = [];
+	let showHistory = true;
+	let showFavourites = false;
+
+	onMount(async () => {
+		historyResearches = getTranslationHistory();
+		favouriteWords = getFavourites();
+	});
+
+	function switchTabs() {
+		showHistory = !showHistory;
+		showFavourites = !showFavourites;
+	}
+
 </script>
 
 <Header />
 
-<div class="text-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-	<p class="text-center">Some great features are coming soon</p>
-</div>
+<nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full top-16 bg-secondary text-xl py-2">
+	<button on:click={switchTabs} disabled={showHistory}
+		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showHistory ? 'border-primary' : 'border-transparent'}"
+	>
+		<span class="text-3xl"><Icon icon="mdi:history" /></span> History
+	</button>
+
+	<button on:click={switchTabs} disabled={showFavourites}
+		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showFavourites ? 'border-primary' : 'border-transparent'}"
+	>
+		<span class="text-3xl"><Icon icon="mdi:star-outline"/></span> Favourites
+	</button>
+</nav>
+
+<main class="container mx-auto lg:w-2/3 xl:w-1/2 pb-1">
+	{#if showHistory}
+		<div>
+			{#each historyResearches as historyResearch}
+				<HistoryCard {historyResearch} />
+			{/each}
+		</div>
+	{/if}
+
+	{#if showFavourites}
+		<div>
+			{#each favouriteWords as word}
+				<FavouriteCard {word} on:remove={() => {favouriteWords = getFavourites()}}/>
+			{/each}
+		</div>
+	{/if}
+</main>
