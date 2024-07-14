@@ -27,32 +27,34 @@
 
 <Header />
 
-<nav class="flex sticky w-full top-16 bg-secondary p-1">
-	<div class="w-1/2 flex justify-center">
-		<button on:click={switchTabs} disabled={showHistory}>
-			<Icon icon="mdi:history" class="w-8 h-8" />
-		</button>
-	</div>
+<nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full top-16 bg-secondary text-xl py-2">
+	<button on:click={switchTabs} disabled={showHistory}
+		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showHistory ? 'border-primary' : 'border-transparent'}"
+	>
+		<span class="text-3xl"><Icon icon="mdi:history" /></span> History
+	</button>
 
-	<div class="w-1/2 flex justify-center">
-		<button on:click={switchTabs} disabled={showFavourites}>
-			<Icon icon="mdi:star-outline" class="w-8 h-8"/>
-		</button>
-	</div>
+	<button on:click={switchTabs} disabled={showFavourites}
+		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showFavourites ? 'border-primary' : 'border-transparent'}"
+	>
+		<span class="text-3xl"><Icon icon="mdi:star-outline"/></span> Favourites
+	</button>
 </nav>
 
-{#if showHistory}
-	<div>
-		{#each historyResearches as historyResearch}
-			<HistoryCard {historyResearch} />
-		{/each}
-	</div>
-{/if}
+<main class="container mx-auto lg:w-2/3 xl:w-1/2 pb-1">
+	{#if showHistory}
+		<div>
+			{#each historyResearches as historyResearch}
+				<HistoryCard {historyResearch} />
+			{/each}
+		</div>
+	{/if}
 
-{#if showFavourites}
-	<div>
-		{#each favouriteWords as word}
-			<FavouriteCard {word} on:remove={() => {favouriteWords = getFavourites()}}/>
-		{/each}
-	</div>
-{/if}
+	{#if showFavourites}
+		<div>
+			{#each favouriteWords as word}
+				<FavouriteCard {word} on:remove={() => {favouriteWords = getFavourites()}}/>
+			{/each}
+		</div>
+	{/if}
+</main>
