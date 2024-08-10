@@ -52,7 +52,7 @@ export function getTranslationHistory(): HistoryResearch[] {
 
 export function extendCard(event: MouseEvent) {
 	const target = event.target as HTMLElement;
-	const cardDivs = target.closest('div.bg-primary')?.querySelectorAll('div');
+	const cardDivs = target.closest('div.bg-primary-bis')?.querySelectorAll('div');
 	cardDivs?.forEach(p => p.classList.toggle('whitespace-nowrap'));
 }
 
