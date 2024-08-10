@@ -58,24 +58,6 @@
 </script>
 
 <header class="sticky top-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
-	<div class="flex justify-between items-center">
-		<select bind:value={sourceLanguage} on:change={checkNewSourceLanguage} class="text-lg hidden bg-primary rounded-full w-1/2 py-2 px-4 m-2 focus:outline-0">
-			{#each languages as { code, nativeName, flag }}
-				<option value="{code}">{flag}&emsp;{nativeName}</option>
-			{/each}
-		</select>
-
-		<button on:click={switchLanguages}>
-			<Icon icon="mdi:circle-arrows" class="text-4xl"/>
-		</button>
-
-		<select bind:value={targetLanguage} on:change={checkNewTargetLanguage} class="text-lg hidden bg-primary rounded-full w-1/2 py-2 px-4 m-2 focus:outline-0">
-			{#each languages as { code, nativeName, flag }}
-				<option value="{code}">{flag}&emsp;{nativeName}</option>
-			{/each}
-		</select>
-	</div>
-
 	<div class="flex items-center gap-2 h-16 p-2">
 		<a href="/">
 			<Icon icon="mdi:home-outline" class="text-4xl"/>
@@ -90,6 +72,24 @@
 		<button id="search-button" on:click={research}>
 			<Icon icon="mdi:search"  class="text-3xl"/>
 		</button>
+	</div>
+
+	<div class="flex justify-between items-center">
+		<select bind:value={sourceLanguage} on:change={checkNewSourceLanguage} class="cursor-pointer hidden bg-primary rounded-full w-1/2 py-1 px-4 m-2 focus:outline-0">
+			{#each languages as { code, nativeName, flag }}
+				<option value="{code}">{flag}&emsp;{nativeName}</option>
+			{/each}
+		</select>
+
+		<button on:click={switchLanguages}>
+			<Icon icon="mdi:circle-arrows" class="text-3xl"/>
+		</button>
+
+		<select bind:value={targetLanguage} on:change={checkNewTargetLanguage} class="cursor-pointer hidden bg-primary rounded-full w-1/2 py-1 px-4 m-2 focus:outline-0">
+			{#each languages as { code, nativeName, flag }}
+				<option value="{code}">{flag}&emsp;{nativeName}</option>
+			{/each}
+		</select>
 	</div>
 </header>
 
