@@ -29,7 +29,7 @@
 
 <main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-1/3 xl:flex-row-reverse xl:justify-between">
 	<div>
-		<section class="text-2xl p-2 relative pr-12 bg-primary xl:min-w-96">
+		<section class="text-2xl p-2 relative pr-12 bg-primary-bis xl:min-w-96">
 		<p>{data.input}</p>
 		<p id="textToSearch">{data.translation}</p>
 		<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
