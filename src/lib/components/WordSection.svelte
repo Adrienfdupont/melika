@@ -26,7 +26,9 @@
 	<td class="align-top p-1 w-1/3">
 		<p class="text-xl">
 			{word.match}
-			<span class="text-base font-light">({word.pronunciation})</span>
+			{#if (word.pronunciation)}
+				<span class="text-base font-light">({word.pronunciation})</span>
+			{/if}
 		</p>
 	</td>
 

@@ -22,12 +22,11 @@
 		showHistory = !showHistory;
 		showFavourites = !showFavourites;
 	}
-
 </script>
 
 <Header />
 
-<nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full top-16 bg-secondary text-xl py-2">
+<nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full bg-secondary text-xl py-2">
 	<button on:click={switchTabs} disabled={showHistory}
 		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showHistory ? 'border-primary' : 'border-transparent'}"
 	>
@@ -53,7 +52,7 @@
 	{#if showFavourites}
 		<div>
 			{#each favouriteWords as word}
-				<FavouriteCard {word} on:remove={() => {favouriteWords = getFavourites()}}/>
+				<FavouriteCard {word} on:remove={() => favouriteWords = getFavourites()}/>
 			{/each}
 		</div>
 	{/if}
