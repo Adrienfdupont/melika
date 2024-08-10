@@ -8,7 +8,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<div class="flex justify-between flex-shrink-0 bg-primary rounded p-4 m-2"
+<div class="flex justify-between flex-shrink-0 bg-primary-bis rounded p-4 m-2"
 		 on:mousedown={extendCard} role="button" tabindex="0"
 >
 	<div class="whitespace-nowrap overflow-hidden text-ellipsis">{word.match}
