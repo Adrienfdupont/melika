@@ -21,7 +21,7 @@
 	function research() {
 		fadeButton(document.querySelector('#search-button'));
 		if (textToSearch.length > 0) {
-			window.location.href = `/search/${encodeURIComponent(textToSearch)}?from=${sourceLanguage}&to=${targetLanguage}`;
+			window.location.href = `/search?from=${sourceLanguage}&to=${targetLanguage}&text=${encodeURIComponent(textToSearch)}`;
 		}
 		document.querySelector('#spinner-modal').classList.remove('hidden');
 		document.body.style.overflow = 'hidden';

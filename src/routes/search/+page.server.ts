@@ -3,10 +3,10 @@ import type { PageServerLoad } from './$types';
 import { languages } from '$lib/languages';
 import translate from 'translate';
 
-export const load: PageServerLoad = async ({ params, url }) => {
+export const load: PageServerLoad = async ({ url }: { url: URL }) => {
 	const sourceLanguage = url.searchParams.get('from') ?? 'en';
 	const targetLanguage = url.searchParams.get('to') ?? 'fa';
-	const textToTranslate = decodeURIComponent(params.slug);
+	const textToTranslate = decodeURIComponent(url.searchParams.get('text') ?? '');
 	const translation = await translate(textToTranslate, { from: sourceLanguage, to: targetLanguage });
 	const words = translation.split(' ');
 	const pages: Page[] = [];
