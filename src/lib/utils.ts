@@ -73,7 +73,7 @@ export function removeWordFromFavourites(word: Word) {
 
 export function getFavourites(): Word[] {
 	const favourites = localStorage.getItem('favourites');
-	return favourites ? JSON.parse(favourites) : [];
+	return favourites ? JSON.parse(favourites).reverse() : [];
 }
 
 export function wordIsInFavourites(word: Word): boolean {
