@@ -75,17 +75,17 @@
 	</div>
 
 	<div class="flex justify-between items-center">
-		<select bind:value={sourceLanguage} on:change={checkNewSourceLanguage} class="cursor-pointer hidden bg-primary rounded-full w-1/2 py-1 px-4 m-2 focus:outline-0">
+		<select bind:value={sourceLanguage} on:change={checkNewSourceLanguage} class="cursor-pointer hidden bg-primary rounded-full w-1/2 py-2 px-4 m-2 focus:outline-0">
 			{#each languages as { code, nativeName, flag }}
 				<option value="{code}">{flag}&emsp;{nativeName}</option>
 			{/each}
 		</select>
 
 		<button on:click={switchLanguages}>
-			<Icon icon="mdi:circle-arrows" class="text-3xl"/>
+			<Icon icon="mdi:circle-arrows" class="text-4xl"/>
 		</button>
 
-		<select bind:value={targetLanguage} on:change={checkNewTargetLanguage} class="cursor-pointer hidden bg-primary rounded-full w-1/2 py-1 px-4 m-2 focus:outline-0">
+		<select bind:value={targetLanguage} on:change={checkNewTargetLanguage} class="cursor-pointer hidden bg-primary rounded-full w-1/2 py-2 px-4 m-2 focus:outline-0">
 			{#each languages as { code, nativeName, flag }}
 				<option value="{code}">{flag}&emsp;{nativeName}</option>
 			{/each}
