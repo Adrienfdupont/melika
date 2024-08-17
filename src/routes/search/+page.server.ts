@@ -1,16 +1,13 @@
 import type { Page } from '$lib/types/Page';
 import type { PageServerLoad } from './$types';
 import { languages } from '$lib/languages';
-import translate from 'translate';
 
 export const load: PageServerLoad = async ({ url }: { url: URL }) => {
-	const sourceLanguage = url.searchParams.get('from') ?? 'en';
-	const targetLanguage = url.searchParams.get('to') ?? 'fa';
-	const textToTranslate = decodeURIComponent(url.searchParams.get('text') ?? '');
-	const translation = await translate(textToTranslate, { from: sourceLanguage, to: targetLanguage });
-	const words = translation.split(' ');
+	const language = url.searchParams.get('lang') ?? 'en';
+	const output = decodeURIComponent(url.searchParams.get('output') ?? '');
+	const words = output.split(' ');
 	const pages: Page[] = [];
-	const languageName = languages.find((lang) => lang.code === targetLanguage)?.name;
+	const languageName = languages.find((lang) => lang.code === language)?.name;
 	const regex = new RegExp(`id="${languageName}">([\\s\\S]*?)<h2>`);
 
 	for (const word of words) {
@@ -33,5 +30,5 @@ export const load: PageServerLoad = async ({ url }: { url: URL }) => {
 		}
 	}
 
-	return { input: textToTranslate, translation: translation, pages: pages };
+	return { output: output, pages: pages };
 };

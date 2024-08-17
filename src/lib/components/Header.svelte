@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { fadeButton } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { languages } from '$lib/languages';
+	import translate from 'translate';
 
-	let textToSearch: string;
+	let input: string;
 	let sourceLanguage: string;
 	let targetLanguage: string;
 	let placeholder: string;
@@ -19,12 +19,12 @@
 	});
 
 	function research() {
-		fadeButton(document.querySelector('#search-button'));
-		if (textToSearch.length > 0) {
-			window.location.href = `/search?from=${sourceLanguage}&to=${targetLanguage}&text=${encodeURIComponent(textToSearch)}`;
-		}
 		document.querySelector('#spinner-modal').classList.remove('hidden');
 		document.body.style.overflow = 'hidden';
+		translate(input, { from: sourceLanguage, to: targetLanguage })
+			.then(output => {
+				window.location.href = `/search?lang=${targetLanguage}&input=${input}&output=${encodeURIComponent(output)}`
+			});
 	}
 
 	function checkNewSourceLanguage() {
@@ -63,7 +63,7 @@
 			<Icon icon="mdi:home-outline" class="text-4xl"/>
 		</a>
 		<input
-			bind:value={textToSearch}
+			bind:value={input}
 			on:keydown={(e) => e.key === 'Enter' && research()}
 			type="text"
 			placeholder="{placeholder}"
