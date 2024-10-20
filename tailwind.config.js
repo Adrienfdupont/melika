@@ -6,7 +6,8 @@ export default {
 			colors: {
 				'primary': '#592D68',
 				'primary-bis': '#2d2751',
-				'secondary': '#14132B'
+				'secondary': '#14132B',
+				'secondary-bis': '#1e1c36',
 			},
 			animation: {
 				'fade': 'fade 0.3s ease-in forwards',

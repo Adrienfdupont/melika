@@ -30,8 +30,3 @@ select {
 	text-indent: 1px;
 	text-overflow: '';
 }
-@layer base {
-	select, option {
-		@apply bg-secondary;
-	}
-}

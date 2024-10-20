@@ -13,7 +13,7 @@
 
 	function copyTranslationToClipboard() {
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
-		fadeButton(document.querySelector('#copy-button'));
+		fadeButton(document.querySelector('#copy-button')!);
 	}
 
 	onMount(async () => {

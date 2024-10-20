@@ -23,21 +23,21 @@
 </script>
 
 <tr>
-	<td class="align-top p-1 w-1/3">
-		<p class="text-xl">
+	<td class="align-top text-xl p-1 w-1/2">
+		<p>
 			{word.match}
 			{#if (word.pronunciation)}
-				<span class="text-base font-light">({word.pronunciation})</span>
+				<span class="text-sm font-extralight">{word.pronunciation}</span>
 			{/if}
 		</p>
 	</td>
 
-	<td class="align-top p-1">
+	<td class="align-top p-1 text-sm">
 		<p>{word.definitions}</p>
 	</td>
 
-	<td class="text-right align-top p-1">
-		<button class="text-xl" on:click={toggleStarredWord}>
+	<td class="text-right text-xl align-top p-1">
+		<button on:click={toggleStarredWord}>
 			<Icon icon="mdi:star" class={isStarred ? 'text-yellow-500' : 'text-gray-500'} />
 		</button>
 	</td>

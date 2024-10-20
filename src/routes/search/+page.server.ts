@@ -1,17 +1,14 @@
 import type { Page } from '$lib/types/Page';
 import type { PageServerLoad } from './$types';
-import { languages } from '$lib/languages';
 import translate from 'translate';
 
 export const load: PageServerLoad = async ({ url }: { url: URL }) => {
-	const sourceLanguage = url.searchParams.get('from') ?? 'en';
-	const targetLanguage = url.searchParams.get('to') ?? 'fa';
+
 	const textToTranslate = decodeURIComponent(url.searchParams.get('text') ?? '');
-	const translation = await translate(textToTranslate, { from: sourceLanguage, to: targetLanguage });
+	const translation = await translate(textToTranslate, { from: 'en', to: 'fa' });
 	const words = translation.split(' ');
 	const pages: Page[] = [];
-	const languageName = languages.find((lang) => lang.code === targetLanguage)?.name;
-	const regex = new RegExp(`id="${languageName}">([\\s\\S]*?)<h2>`);
+	const regex = new RegExp(`id="Persian">([\\s\\S]*?)<h2>`);
 
 	for (const word of words) {
 		for (let i = 0; i < 3; i++) {
