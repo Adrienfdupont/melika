@@ -4,15 +4,19 @@ import type { HistoryResearch } from '$lib/types/HistoryResearch';
 
 export function extractWordData(page: Page): Word {
 	const htmlDOM = new DOMParser().parseFromString(page.content, 'text/html');
-	const definitionItems = htmlDOM.querySelector('ol')?.querySelectorAll('li');
+	const definitionList = htmlDOM.querySelector('ol')?.querySelectorAll('li');
 	const definitions: string[] = [];
+	let definitionsFound = false;
 
-	definitionItems?.forEach((item) => {
-		item.childNodes.forEach((child) => {
-			if (child.nodeName === 'A') {
+	definitionList?.forEach((listItem) => {
+		const listItemChildren = listItem.children;
+		for (let i = 0; i < listItemChildren.length; i++) {
+			const child = listItemChildren[i];
+			if (child.tagName !== 'dl' && !definitionsFound) {
 				definitions.push(child.textContent ?? '');
 			}
-		});
+			definitionsFound = true;
+		}
 	});
 
 	return {

@@ -23,16 +23,16 @@
 </script>
 
 <tr>
-	<td class="align-top p-1 w-1/3">
-		<p class="text-xl">
+	<td class="align-top p-1 w-1/2">
+		<p>
 			{word.match}
 			{#if (word.pronunciation)}
-				<span class="text-base font-light">({word.pronunciation})</span>
+				<span class="text-base font-extralight">{word.pronunciation}</span>
 			{/if}
 		</p>
 	</td>
 
-	<td class="align-top p-1">
+	<td class="align-top p-1 text-sm">
 		<p>{word.definitions}</p>
 	</td>
 
