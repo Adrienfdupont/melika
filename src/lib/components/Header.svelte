@@ -19,9 +19,9 @@
 			on:keydown={(e) => e.key === 'Enter' && research()}
 			type="text"
 			placeholder="Translate into Persian..."
-			class="bg-secondary-bis w-full h-full px-4 outline-none"
+			class="bg-secondary-bis w-full h-full px-4 outline-none relative"
 		/>
-		<a href="/">
+		<a href="/" class="absolute right-4">
 			<Icon icon="mdi:home-outline" class="text-4xl"/>
 		</a>
 	</div>
