@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ url }: { url: URL }) => {
 	const translation = await translate(textToTranslate, { from: 'en', to: 'fa' });
 	const words = translation.split(' ');
 	const pages: Page[] = [];
-	const regex = new RegExp(`id="Persian">([\\s\\S]*?)<h2>`);
+	const regex = new RegExp(`id="Persian">([\\s\\S]*?)<h2`);
 
 	for (const word of words) {
 		for (let i = 0; i < 3; i++) {
