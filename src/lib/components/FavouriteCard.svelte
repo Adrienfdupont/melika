@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="flex items-center ml-2">
-		<button on:mousedown={() => {removeWordFromFavourites(word); dispatch('remove')}}>
+		<button on:mousedown={() => {removeWordFromFavourites(word); dispatch('remove')}} class="hover:opacity-50">
 			<Icon icon="mdi:close" class="text-xl"/>
 		</button>
 	</div>
