@@ -8,7 +8,6 @@ export const load: PageServerLoad = async ({ url }: { url: URL }) => {
 	const translation = await translate(textToTranslate, { from: 'en', to: 'fa' });
 	const words = translation.split(' ');
 	const pages: Page[] = [];
-	const regex = new RegExp(`id="Persian">([\\s\\S]*?)<h2`);
 
 	for (const word of words) {
 		for (let i = 0; i < 3; i++) {
@@ -17,14 +16,11 @@ export const load: PageServerLoad = async ({ url }: { url: URL }) => {
 			const rawPage = await res.text();
 
 			if (res.status === 200) {
-				const match = regex.exec(rawPage);
-				if (match) {
-					const page: Page = {
-						matchedWord: pattern,
-						content: match[1]
-					};
-					pages.push(page);
-				}
+				const page: Page = {
+					matchedWord: pattern,
+					content: rawPage
+				};
+				pages.push(page);
 				break;
 			}
 		}

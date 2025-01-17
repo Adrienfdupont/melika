@@ -12,8 +12,8 @@
 		 on:mousedown={extendCard} role="button" tabindex="0"
 >
 	<div class="whitespace-nowrap overflow-hidden text-ellipsis">{word.match}
-		<span class="font-light">({word.pronunciation})</span>
-		<span>{word.definitions}</span>
+		<span class="font-light">({word.pronunciations.join(', ')})</span>
+		<span>{word.definitions.join(', ')}</span>
 	</div>
 
 	<div class="flex items-center ml-2">

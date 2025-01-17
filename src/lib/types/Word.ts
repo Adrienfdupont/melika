@@ -1,5 +1,5 @@
 export interface Word {
 	match: string;
-	pronunciation: string;
-	definitions: string;
+	pronunciations: string[];
+	definitions: string[];
 }
