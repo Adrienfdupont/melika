@@ -26,8 +26,8 @@
 	<td class="align-top text-xl p-1 w-1/2">
 		<p>
 			{word.match}
-			{#if (word.pronunciation)}
-				<span class="text-sm font-extralight">{word.pronunciation}</span>
+			{#if (word.pronunciations?.length > 0)}
+				<span class="text-sm font-extralight">{word.pronunciations.join(', ')}</span>
 			{/if}
 		</p>
 	</td>
