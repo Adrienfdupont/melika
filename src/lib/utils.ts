@@ -106,3 +106,20 @@ export function wordIsInFavourites(word: Word): boolean {
 export function isOverflowing(element: HTMLDivElement): boolean {
 	return element.scrollWidth > element.clientWidth || element.scrollHeight > element.clientHeight;
 }
+
+export function displayToast(message: string) {
+	const existingToasts = document.querySelectorAll('.toast');
+	existingToasts.forEach(toast => toast.remove());
+
+	const toast = document.createElement('div');
+	toast.textContent = message;
+	toast.className = 'toast fixed bottom-4 left-1/2 text-center transform -translate-x-1/2 bg-primary-bis text-white py-2 px-4 rounded transition-opacity duration-500';
+	document.body.appendChild(toast);
+
+	setTimeout(() => {
+		toast.classList.add('opacity-0');
+		setTimeout(() => {
+			toast.remove();
+		}, 500);
+	}, 3000);
+}

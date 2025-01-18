@@ -4,7 +4,7 @@
 	import type { PageData } from './$types';
 	import type { Word } from '$lib/types/Word';
 	import WordSection from '$lib/components/WordSection.svelte';
-	import { extractWordData, fadeButton, addTranslationToHistory } from '$lib/utils';
+	import { extractWordData, fadeButton, addTranslationToHistory, displayToast } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 
 	export let data: PageData;
@@ -14,6 +14,7 @@
 	function copyTranslationToClipboard() {
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
 		fadeButton(document.querySelector('#copy-button')!);
+		displayToast('Translation copied to clipboard!');
 	}
 
 	onMount(async () => {
@@ -32,7 +33,7 @@
 		<section class="text-2xl p-2 relative pr-12 bg-primary-bis xl:min-w-96">
 		<p>{data.input}</p>
 		<p id="textToSearch">{data.translation}</p>
-		<button id="copy-button" class="absolute right-2 bottom-2" on:mousedown={copyTranslationToClipboard}>
+		<button id="copy-button" class="absolute right-2 bottom-2 hover:opacity-50" on:mousedown={copyTranslationToClipboard}>
 			<Icon icon="mdi:content-copy" />
 		</button>
 		</section>
