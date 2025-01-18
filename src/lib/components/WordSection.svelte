@@ -5,14 +5,14 @@
 
 	export let word: Word;
 
-	let isStarred = wordIsInFavourites(word);
+	let isPinned = wordIsInFavourites(word);
 
-	function toggleStarredWord(event: MouseEvent) {
+	function togglePinnedWord(event: MouseEvent) {
 		const target = event.target as HTMLElement;
 		const button = target.closest('button') as HTMLButtonElement;
 
-		isStarred = !isStarred;
-		if (isStarred) {
+		isPinned = !isPinned;
+		if (isPinned) {
 			button.classList.replace('text-gray-500', 'text-yellow-500');
 			addWordToFavourites(word);
 		} else {
@@ -27,7 +27,7 @@
 		<p>
 			{word.match}
 			{#if (word.pronunciations?.length > 0)}
-				<span class="text-sm font-extralight">{word.pronunciations.join(', ')}</span>
+				<span class="text-sm font-extralight text-gray-400">{word.pronunciations.join(', ')}</span>
 			{/if}
 		</p>
 	</td>
@@ -37,8 +37,8 @@
 	</td>
 
 	<td class="text-right text-xl align-top p-1">
-		<button on:click={toggleStarredWord}>
-			<Icon icon="mdi:star" class={isStarred ? 'text-yellow-500' : 'text-gray-500'} />
+		<button on:click={togglePinnedWord}>
+			<Icon icon="mdi:pin" class={isPinned ? 'text-yellow-500' : 'text-gray-500'} />
 		</button>
 	</td>
 </tr>
