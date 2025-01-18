@@ -36,7 +36,7 @@
 	<button on:click={switchTabs} disabled={showFavourites}
 		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showFavourites ? 'border-primary' : 'border-transparent'}"
 	>
-		<span><Icon icon="mdi:star-outline" class="text-3xl"/></span> Favourites
+		<span><Icon icon="mdi:pin-outline" class="text-3xl"/></span> Pinned
 	</button>
 </nav>
 
