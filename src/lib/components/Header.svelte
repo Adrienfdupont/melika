@@ -21,7 +21,7 @@
 			placeholder="Translate into Persian..."
 			class="bg-secondary-bis w-full h-full px-4 outline-none relative"
 		/>
-		<a href="/" class="absolute right-4">
+		<a href="/" class="absolute right-4 hover:opacity-50">
 			<Icon icon="mdi:home-outline" class="text-4xl"/>
 		</a>
 	</div>

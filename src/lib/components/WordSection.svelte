@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Word } from '../types/Word';
 	import Icon from '@iconify/svelte';
-	import { addWordToFavourites, removeWordFromFavourites, wordIsInFavourites } from '$lib/utils';
+	import { addWordToFavourites, displayToast, removeWordFromFavourites, wordIsInFavourites } from '$lib/utils';
 
 	export let word: Word;
 
@@ -15,9 +15,11 @@
 		if (isPinned) {
 			button.classList.replace('text-gray-500', 'text-yellow-500');
 			addWordToFavourites(word);
+			displayToast('Word has been pinned!');
 		} else {
 			button.classList.replace('text-yellow-500', 'text-gray-500');
 			removeWordFromFavourites(word);
+			displayToast('Word has been unpinned!');
 		}
 	}
 </script>
@@ -37,8 +39,8 @@
 	</td>
 
 	<td class="text-right text-xl align-top p-1">
-		<button on:click={togglePinnedWord}>
-			<Icon icon="mdi:pin" class={isPinned ? 'text-yellow-500' : 'text-gray-500'} />
+		<button on:click={togglePinnedWord} class="hover:opacity-50">
+			<Icon icon="mdi:pin" class={isPinned ? 'text-primary' : 'text-gray-500'} />
 		</button>
 	</td>
 </tr>
