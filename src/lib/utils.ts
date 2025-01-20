@@ -113,7 +113,7 @@ export function displayToast(message: string) {
 
 	const toast = document.createElement('div');
 	toast.textContent = message;
-	toast.className = 'toast fixed bottom-4 left-1/2 text-center transform -translate-x-1/2 bg-primary-bis text-white py-2 px-4 rounded transition-opacity duration-500';
+	toast.className = 'toast fixed bottom-4 left-1/2 text-center transform -translate-x-1/2 bg-primary-bis text-white py-2 px-4 rounded transition-opacity duration-500 w-full max-w-xs';
 	document.body.appendChild(toast);
 
 	setTimeout(() => {

@@ -15,11 +15,11 @@
 		if (isPinned) {
 			button.classList.replace('text-gray-500', 'text-yellow-500');
 			addWordToFavourites(word);
-			displayToast('Word has been pinned!');
+			displayToast('Word has been pinned');
 		} else {
 			button.classList.replace('text-yellow-500', 'text-gray-500');
 			removeWordFromFavourites(word);
-			displayToast('Word has been unpinned!');
+			displayToast('Word has been unpinned');
 		}
 	}
 </script>
