@@ -43,6 +43,9 @@
 <main class="container mx-auto lg:w-2/3 xl:w-1/2 pb-1">
 	{#if showHistory}
 		<div>
+			{#if historyResearches.length === 0}
+				<p class="text-center text-xl m-10">There is no research to show</p>
+			{/if}
 			{#each historyResearches as historyResearch}
 				<HistoryCard {historyResearch} />
 			{/each}
@@ -51,6 +54,9 @@
 
 	{#if showFavourites}
 		<div>
+			{#if favouriteWords.length === 0}
+				<p class="text-center text-xl m-10">You haven't pinned any word yet</p>
+			{/if}
 			{#each favouriteWords as word}
 				<FavouriteCard {word} on:remove={() => favouriteWords = getFavourites()}/>
 			{/each}
