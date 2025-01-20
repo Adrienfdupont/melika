@@ -14,7 +14,6 @@
 	function copyTranslationToClipboard() {
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
 		fadeButton(document.querySelector('#copy-button')!);
-		displayToast('Translation copied to clipboard!');
 	}
 
 	onMount(async () => {
