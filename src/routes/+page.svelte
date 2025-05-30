@@ -22,6 +22,10 @@
 		showHistory = !showHistory;
 		showFavourites = !showFavourites;
 	}
+
+	function handleRemove(event: CustomEvent<{ word: Word }>) {
+		favouriteWords = favouriteWords.filter((w) => w.match !== event.detail.word.match);
+	}
 </script>
 
 <Header />
@@ -58,7 +62,7 @@
 				<p class="text-center text-xl m-10">You haven't pinned any word yet</p>
 			{/if}
 			{#each favouriteWords as word}
-				<FavouriteCard {word} on:remove={() => favouriteWords = getFavourites()}/>
+				<FavouriteCard {word} on:remove={handleRemove}/>
 			{/each}
 		</div>
 	{/if}
