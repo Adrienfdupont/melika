@@ -10,6 +10,12 @@
 		document.querySelector('#spinner-modal')?.classList.remove('hidden');
 		document.body.style.overflow = 'hidden';
 	}
+
+	function navigateToHome() {
+		if (window.location.pathname !== '/') {
+			window.location.href = '/';
+		}
+	}
 </script>
 
 <header class="sticky top-0 z-10 bg-secondary container mx-auto lg:w-2/3 xl:w-1/2">
@@ -21,7 +27,7 @@
 			placeholder="Translate into Persian..."
 			class="bg-secondary-bis w-full h-full px-4 outline-none relative"
 		/>
-		<button on:click={()=>location.assign('/')} class="absolute right-4 hover:opacity-50">
+		<button on:click={navigateToHome} class="absolute right-4 hover:opacity-50">
 			<Icon icon="mdi:home-outline" class="text-4xl"/>
 		</button>
 	</div>

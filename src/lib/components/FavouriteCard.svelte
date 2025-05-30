@@ -6,6 +6,11 @@
 
 	export let word: Word;
 	const dispatch = createEventDispatcher();
+
+	function handleRemove() {
+		removeWordFromFavourites(word);
+		dispatch('remove', { word });
+	}
 </script>
 
 <div class="flex justify-between flex-shrink-0 bg-primary-bis rounded p-4 m-2"
@@ -18,7 +23,7 @@
 	</div>
 
 	<div class="flex items-center ml-2">
-		<button on:mousedown={() => {removeWordFromFavourites(word); dispatch('remove')}} class="hover:opacity-50">
+		<button on:mousedown={handleRemove} class="hover:opacity-50">
 			<Icon icon="mdi:close" class="text-xl"/>
 		</button>
 	</div>
