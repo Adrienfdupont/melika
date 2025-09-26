@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { WordData } from '../types/WordData';
 	import Icon from '@iconify/svelte';
-	import { addWordToFavourites, displayToast, removeWordFromFavourites, wordIsInFavourites } from '$lib/utils';
+	import {
+		addWordToFavourites,
+		displayToast,
+		removeWordFromFavourites,
+		wordIsInFavourites
+	} from '$lib/utils';
 
 	export let wordData: WordData;
 

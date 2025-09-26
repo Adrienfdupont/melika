@@ -28,7 +28,7 @@
 			class="bg-secondary-bis w-full h-full px-4 outline-none relative"
 		/>
 		<button on:click={navigateToHome} class="absolute right-4 hover:opacity-50">
-			<Icon icon="mdi:home-outline" class="text-4xl"/>
+			<Icon icon="mdi:home-outline" class="text-4xl" />
 		</button>
 	</div>
 </header>
@@ -36,6 +36,5 @@
 <div id="spinner-modal" class="fixed inset-0 bg-black opacity-50 z-20 hidden">
 	<div
 		class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full h-32 w-32 border-8 border-t-secondary animate-spin"
-	>
-	</div>
+	></div>
 </div>

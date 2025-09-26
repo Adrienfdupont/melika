@@ -13,8 +13,11 @@
 	}
 </script>
 
-<div class="flex justify-between flex-shrink-0 bg-primary-bis rounded p-4 m-2"
-		 on:mousedown={extendCard} role="button" tabindex="0"
+<div
+	class="flex justify-between flex-shrink-0 bg-primary-bis rounded p-4 m-2"
+	on:mousedown={extendCard}
+	role="button"
+	tabindex="0"
 >
 	<div class="whitespace-nowrap overflow-hidden text-ellipsis">
 		<span>{word.match}</span>
@@ -24,7 +27,7 @@
 
 	<div class="flex items-center ml-2">
 		<button on:mousedown={handleRemove} class="hover:opacity-50">
-			<Icon icon="mdi:close" class="text-xl"/>
+			<Icon icon="mdi:close" class="text-xl" />
 		</button>
 	</div>
 </div>

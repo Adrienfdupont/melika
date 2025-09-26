@@ -31,16 +31,24 @@
 <Header />
 
 <nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full bg-secondary text-xl py-2">
-	<button on:click={switchTabs} disabled={showHistory}
-		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showHistory ? 'border-primary' : 'border-transparent'}"
+	<button
+		on:click={switchTabs}
+		disabled={showHistory}
+		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showHistory
+			? 'border-primary'
+			: 'border-transparent'}"
 	>
-		<span><Icon icon="mdi:history" class="text-3xl"/></span> History
+		<span><Icon icon="mdi:history" class="text-3xl" /></span> History
 	</button>
 
-	<button on:click={switchTabs} disabled={showFavourites}
-		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showFavourites ? 'border-primary' : 'border-transparent'}"
+	<button
+		on:click={switchTabs}
+		disabled={showFavourites}
+		class="w-1/2 border-b-4 flex justify-center items-center gap-1 pb-2 {showFavourites
+			? 'border-primary'
+			: 'border-transparent'}"
 	>
-		<span><Icon icon="mdi:pin-outline" class="text-3xl"/></span> Pinned
+		<span><Icon icon="mdi:pin-outline" class="text-3xl" /></span> Pinned
 	</button>
 </nav>
 
@@ -62,7 +70,7 @@
 				<p class="text-center text-xl m-10">You haven't pinned any word yet</p>
 			{/if}
 			{#each favouriteWords as word}
-				<FavouriteCard {word} on:remove={handleRemove}/>
+				<FavouriteCard {word} on:remove={handleRemove} />
 			{/each}
 		</div>
 	{/if}

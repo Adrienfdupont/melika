@@ -25,11 +25,15 @@
 <main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-2/3 xl:w-1/2">
 	<div>
 		<section class="text-2xl p-2 relative pr-12 bg-primary-bis xl:min-w-96">
-		<p>{data.input}</p>
-		<p id="textToSearch">{data.translation}</p>
-		<button id="copy-button" class="absolute right-2 bottom-2 hover:opacity-50" on:mousedown={copyTranslationToClipboard}>
-			<Icon icon="mdi:content-copy" />
-		</button>
+			<p>{data.input}</p>
+			<p id="textToSearch">{data.translation}</p>
+			<button
+				id="copy-button"
+				class="absolute right-2 bottom-2 hover:opacity-50"
+				on:mousedown={copyTranslationToClipboard}
+			>
+				<Icon icon="mdi:content-copy" />
+			</button>
 		</section>
 	</div>
 

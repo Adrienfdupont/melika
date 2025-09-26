@@ -20,7 +20,6 @@ export function addTranslationToHistory(input: string, translation: string) {
 	}
 	history.push({ input, translation });
 	localStorage.setItem('translationHistory', JSON.stringify(history));
-
 }
 
 export function getTranslationHistory(): HistoryResearch[] {
@@ -31,7 +30,7 @@ export function getTranslationHistory(): HistoryResearch[] {
 export function extendCard(event: MouseEvent) {
 	const target = event.target as HTMLElement;
 	const cardDivs = target.closest('div.bg-primary-bis')?.querySelectorAll('div');
-	cardDivs?.forEach(p => p.classList.toggle('whitespace-nowrap'));
+	cardDivs?.forEach((p) => p.classList.toggle('whitespace-nowrap'));
 }
 
 export function addWordToFavourites(word: Word) {
@@ -65,11 +64,12 @@ export function isOverflowing(element: HTMLDivElement): boolean {
 
 export function displayToast(message: string) {
 	const existingToasts = document.querySelectorAll('.toast');
-	existingToasts.forEach(toast => toast.remove());
+	existingToasts.forEach((toast) => toast.remove());
 
 	const toast = document.createElement('div');
 	toast.textContent = message;
-	toast.className = 'toast fixed bottom-4 left-1/2 text-center transform -translate-x-1/2 bg-primary-bis text-white py-2 px-4 rounded transition-opacity duration-500 w-full max-w-xs';
+	toast.className =
+		'toast fixed bottom-4 left-1/2 text-center transform -translate-x-1/2 bg-primary-bis text-white py-2 px-4 rounded transition-opacity duration-500 w-full max-w-xs';
 	document.body.appendChild(toast);
 
 	setTimeout(() => {
