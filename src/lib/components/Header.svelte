@@ -5,7 +5,7 @@
 
 	function research() {
 		if (textToSearch.length > 0) {
-			window.location.href = `/search?text=${encodeURIComponent(textToSearch)}`;
+			window.location.href = `/search?input=${encodeURIComponent(textToSearch)}`;
 		}
 		document.querySelector('#spinner-modal')?.classList.remove('hidden');
 		document.body.style.overflow = 'hidden';

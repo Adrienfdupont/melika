@@ -1,15 +1,13 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
-	import type { Word } from '$lib/types/Word';
 	import WordSection from '$lib/components/WordSection.svelte';
-	import { extractWordData, fadeButton, addTranslationToHistory, displayToast } from '$lib/utils';
+	import { fadeButton, addTranslationToHistory } from '$lib/utils';
 	import Icon from '@iconify/svelte';
+	import type { TranslationResult } from '$lib/types/TranslationResult';
 
-	export let data: PageData;
+	export let data: TranslationResult;
 	let isDataLoaded = false;
-	const words: Word[] = [];
 
 	function copyTranslationToClipboard() {
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
@@ -17,9 +15,6 @@
 	}
 
 	onMount(async () => {
-		data.pages.forEach((page) => {
-			words.push(extractWordData(page));
-		});
 		isDataLoaded = true;
 		addTranslationToHistory(data.input, data.translation);
 	});
@@ -41,8 +36,8 @@
 	{#if isDataLoaded}
 		<section>
 			<table class="w-full">
-				{#each words as word}
-					<WordSection {word} />
+				{#each data.wordsData as wordData}
+					<WordSection {wordData} />
 				{/each}
 			</table>
 		</section>

@@ -1,48 +1,4 @@
-import type { Page } from '$lib/types/Page';
-import type { Word } from '$lib/types/Word';
 import type { HistoryResearch } from '$lib/types/HistoryResearch';
-
-export function extractWordData(page: Page): Word {
-	const parser = new DOMParser();
-	const document = parser.parseFromString(page.content, 'text/html');
-	const sectionTitle = document.getElementById('Persian')?.parentElement;
-	let definitionsFound = false;
-	const word: Word = { match: page.matchedWord, pronunciations: [], definitions: [] };
-
-	let nextElement = sectionTitle?.nextElementSibling;
-	while (nextElement) {
-		if (nextElement.tagName === 'P' &&
-			nextElement.firstElementChild?.classList.contains('headword-line') &&
-			word.pronunciations.length === 0
-		) {
-			const headwordLine = nextElement.firstElementChild;
-			for (const child of headwordLine?.children) {
-				if (child.classList.contains('headword-tr')) {
-					word.pronunciations.push(child.textContent || '');
-				}
-			}
-		}
-
-		if (nextElement.tagName === 'OL') {
-			const listItems = nextElement.getElementsByTagName('LI');
-			for (const item of listItems) {
-				for (const child of item.children) {
-					if (child.tagName !== 'DL' && !definitionsFound) {
-						word.definitions.push(child.textContent || '');
-					}
-					definitionsFound = true;
-				}
-			}
-		}
-
-		if (!nextElement.classList.contains('mw-heading') || !nextElement.classList.contains('mw-heading2')) {
-			nextElement = nextElement.nextElementSibling;
-		} else {
-			break;
-		}
-	}
-	return word;
-}
 
 export function fadeButton(button: HTMLButtonElement) {
 	if (button.classList.contains('animate-fade')) {
