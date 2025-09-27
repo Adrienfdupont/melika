@@ -39,7 +39,7 @@
 
 	<td class="align-top p-1 text-sm">
 		<ol class="list-decimal">
-			{#each wordData.definitions as definition}
+			{#each wordData.definitions.slice(0, 3) as definition}
 				<li>{definition}</li>
 			{/each}
 		</ol>
