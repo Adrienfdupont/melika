@@ -1,11 +1,16 @@
 <script lang="ts">
-	import type { Word } from '../types/Word';
+	import type { WordData } from '../types/WordData';
 	import Icon from '@iconify/svelte';
-	import { addWordToFavourites, displayToast, removeWordFromFavourites, wordIsInFavourites } from '$lib/utils';
+	import {
+		addWordToFavourites,
+		displayToast,
+		removeWordFromFavourites,
+		wordIsInFavourites
+	} from '$lib/utils';
 
-	export let word: Word;
+	export let wordData: WordData;
 
-	let isPinned = wordIsInFavourites(word);
+	let isPinned = wordIsInFavourites(wordData);
 
 	function togglePinnedWord(event: MouseEvent) {
 		const target = event.target as HTMLElement;
@@ -14,11 +19,11 @@
 		isPinned = !isPinned;
 		if (isPinned) {
 			button.classList.replace('text-gray-500', 'text-yellow-500');
-			addWordToFavourites(word);
+			addWordToFavourites(wordData);
 			displayToast('Word has been pinned');
 		} else {
 			button.classList.replace('text-yellow-500', 'text-gray-500');
-			removeWordFromFavourites(word);
+			removeWordFromFavourites(wordData);
 			displayToast('Word has been unpinned');
 		}
 	}
@@ -27,15 +32,17 @@
 <tr>
 	<td class="align-top text-xl p-1 w-1/2">
 		<p>
-			{word.match}
-			{#if (word.pronunciations?.length > 0)}
-				<span class="text-sm font-extralight text-gray-400">{word.pronunciations.join(', ')}</span>
-			{/if}
+			{wordData.word}
+			<span class="text-sm font-extralight text-gray-400">{wordData.pronunciation}</span>
 		</p>
 	</td>
 
 	<td class="align-top p-1 text-sm">
-		<p>{word.definitions}</p>
+		<ol class="list-decimal">
+			{#each wordData.definitions.slice(0, 3) as definition}
+				<li>{definition}</li>
+			{/each}
+		</ol>
 	</td>
 
 	<td class="text-right text-xl align-top p-1">
