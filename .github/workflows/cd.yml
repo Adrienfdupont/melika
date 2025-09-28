@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04-arm64
 
     steps:
       - name: Checkout repo
@@ -23,13 +23,10 @@ jobs:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Set IMAGE names
+      - name: Set image name
         run: |
-          SHORT_SHA=${GITHUB_SHA:0:7}
           REPO="${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_USER }}/melika"
-          IMAGE_SHORT="$REPO:$SHORT_SHA"
           IMAGE_LATEST="$REPO:latest"
-          echo "IMAGE_SHORT=$IMAGE_SHORT" >> $GITHUB_ENV
           echo "IMAGE_LATEST=$IMAGE_LATEST" >> $GITHUB_ENV
 
       - name: Build and push Docker image
@@ -37,9 +34,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            ${{ env.IMAGE_SHORT }}
-            ${{ env.IMAGE_LATEST }}
+          tags: ${{ env.IMAGE_LATEST }}
 
       - name: Deploy on remote server
         uses: appleboy/ssh-action@v1
