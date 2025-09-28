@@ -39,6 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"jsdom": "^27.0.0",
+		"redis": "^5.8.2",
 		"translate": "^3.0.0"
 	}
 }
