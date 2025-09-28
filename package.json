@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"jsdom": "^27.0.0",
-		"translate": "^3.0.1"
+		"translate": "^3.0.1",
+		"redis": "^5.8.2"
 	}
 }

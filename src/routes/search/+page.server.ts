@@ -1,8 +1,13 @@
 import jsdom from 'jsdom';
 import translate from 'translate';
+import { createClient } from 'redis';
 import type { PageServerLoad } from './$types';
 import type { TranslationResult } from '$lib/types/TranslationResult';
 import type { WordData } from '$lib/types/WordData';
+
+const client = await createClient()
+	.on('error', (err) => console.error('Redis Client Error', err))
+	.connect();
 
 export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<TranslationResult> => {
 	const input = decodeURIComponent(url.searchParams.get('input') ?? '');
@@ -10,15 +15,21 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 	const wordsData: WordData[] = [];
 
 	for (const word of translation.split(' ')) {
-		for (let i = 0; i < 3; i++) {
-			const pattern = word.slice(0, word.length - i);
-			const res = await fetch(`https://en.wiktionary.org/wiki/${pattern}`);
+		const cachedWordData = await client.get(word);
+		if (cachedWordData) {
+			wordsData.push(JSON.parse(cachedWordData));
+		} else {
+			for (let i = 0; i < 3; i++) {
+				const pattern = word.slice(0, word.length - i);
+				const res = await fetch(`https://en.wiktionary.org/wiki/${pattern}`);
 
-			if (res.status === 200) {
-				const rawPage = await res.text();
-				const wordData = extractWordData(pattern, rawPage);
-				wordsData.push(wordData);
-				break;
+				if (res.status === 200) {
+					const rawPage = await res.text();
+					const wordData = extractWordData(pattern, rawPage);
+					await client.set(word, JSON.stringify(wordData));
+					wordsData.push(wordData);
+					break;
+				}
 			}
 		}
 	}
@@ -30,7 +41,8 @@ function extractWordData(match: string, sectionContent: string): WordData {
 	const wordData: WordData = {
 		word: match,
 		pronunciation: '',
-		definitions: []
+		definitions: [],
+		lastUpdate: new Date()
 	};
 
 	const { JSDOM } = jsdom;
