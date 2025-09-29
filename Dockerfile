@@ -3,6 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+ARG REDIS_URL
+ENV REDIS_URL=$REDIS_URL
 RUN npm run build
 RUN npm prune --production
 
