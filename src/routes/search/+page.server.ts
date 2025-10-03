@@ -47,7 +47,7 @@ function extractWordData(match: string, sectionContent: string): WordData {
 		word: match,
 		pronunciation: '',
 		definitions: [],
-		lastUpdate: new Date()
+		lastUpdate: Date.now()
 	};
 
 	const { JSDOM } = jsdom;

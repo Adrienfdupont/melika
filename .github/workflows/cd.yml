@@ -36,7 +36,7 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_LATEST }}
           platforms: linux/arm64
-          build-args: REDIS_URL=redis://host:6379
+          build-args: REDIS_URL=${{ secrets.REDIS_URL }}
 
       - name: Deploy on remote server
         uses: appleboy/ssh-action@v1
