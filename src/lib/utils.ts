@@ -1,5 +1,5 @@
 import type { HistoryResearch } from '$lib/types/HistoryResearch';
-import type { WordData } from './types/WordData';
+import type { Word } from './types/Word';
 
 export function getTranslationHistory(): HistoryResearch[] {
 	const history = localStorage.getItem('translationHistory');
@@ -12,7 +12,7 @@ export function extendCard(event: MouseEvent) {
 	cardDivs?.forEach((p) => p.classList.toggle('whitespace-nowrap'));
 }
 
-export function getFavourites(): WordData[] {
+export function getFavourites(): Word[] {
 	const favourites = localStorage.getItem('favourites');
 	return favourites ? JSON.parse(favourites).reverse() : [];
 }

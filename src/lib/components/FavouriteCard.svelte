@@ -1,23 +1,23 @@
 <script lang="ts">
-	import type { WordData } from '$lib/types/WordData';
+	import type { Word } from '$lib/types/Word';
 	import { extendCard } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 
-	export let wordData: WordData;
+	export let word: Word;
 	const dispatch = createEventDispatcher();
 
-	function removeWordFromFavourites(word: WordData) {
+	function removeWordFromFavourites(word: Word) {
 		const favourites = localStorage.getItem('favourites');
 		const newFavourites = favourites ? JSON.parse(favourites) : [];
-		const index = newFavourites.findIndex((fav: WordData) => fav.word === word.word);
+		const index = newFavourites.findIndex((fav: Word) => fav.value === word.value);
 		newFavourites.splice(index, 1);
 		localStorage.setItem('favourites', JSON.stringify(newFavourites));
 	}
 
 	function handleRemove() {
-		removeWordFromFavourites(wordData);
-		dispatch('remove', { wordData });
+		removeWordFromFavourites(word);
+		dispatch('remove', { word });
 	}
 </script>
 
@@ -28,9 +28,9 @@
 	tabindex="0"
 >
 	<div class="whitespace-nowrap overflow-hidden text-ellipsis">
-		<span>{wordData.word}</span>
-		<span class="text-sm font-extralight text-gray-400 mr-2">{wordData.pronunciation}</span>
-		<span>{wordData.definitions.join(', ')}</span>
+		<span>{word.value}</span>
+		<span class="text-sm font-extralight text-gray-400 mr-2">{word.pronunciation}</span>
+		<span>{word.definitions.join(', ')}</span>
 	</div>
 
 	<div class="flex items-center ml-2">

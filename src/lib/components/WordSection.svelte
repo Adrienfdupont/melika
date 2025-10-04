@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { WordData } from '../types/WordData';
+	import type { Word } from '../types/Word';
 	import Icon from '@iconify/svelte';
 	import { getFavourites } from '$lib/utils';
 
-	export let wordData: WordData;
+	export let word: Word;
 
-	let isPinned = wordIsInFavourites(wordData);
+	let isPinned = wordIsInFavourites(word);
 
-	function wordIsInFavourites(word: WordData): boolean {
+	function wordIsInFavourites(word: Word): boolean {
 		const favourites = getFavourites();
-		return favourites.some((fav: WordData) => fav.word === word.word);
+		return favourites.some((fav: Word) => fav.value === word.value);
 	}
 
 	function displayToast(message: string) {
@@ -30,17 +30,17 @@
 		}, 3000);
 	}
 
-	function addWordToFavourites(word: WordData) {
+	function addWordToFavourites(word: Word) {
 		const favourites = localStorage.getItem('favourites');
 		const newFavourites = favourites ? JSON.parse(favourites) : [];
 		newFavourites.push(word);
 		localStorage.setItem('favourites', JSON.stringify(newFavourites));
 	}
 
-	function removeWordFromFavourites(word: WordData) {
+	function removeWordFromFavourites(word: Word) {
 		const favourites = localStorage.getItem('favourites');
 		const newFavourites = favourites ? JSON.parse(favourites) : [];
-		const index = newFavourites.findIndex((fav: WordData) => fav.word === word.word);
+		const index = newFavourites.findIndex((fav: Word) => fav.value === word.value);
 		newFavourites.splice(index, 1);
 		localStorage.setItem('favourites', JSON.stringify(newFavourites));
 	}
@@ -52,11 +52,11 @@
 		isPinned = !isPinned;
 		if (isPinned) {
 			button.classList.replace('text-gray-500', 'text-yellow-500');
-			addWordToFavourites(wordData);
+			addWordToFavourites(word);
 			displayToast('Word has been pinned');
 		} else {
 			button.classList.replace('text-yellow-500', 'text-gray-500');
-			removeWordFromFavourites(wordData);
+			removeWordFromFavourites(word);
 			displayToast('Word has been unpinned');
 		}
 	}
@@ -65,14 +65,14 @@
 <tr>
 	<td class="align-top text-xl p-1 w-1/2">
 		<p>
-			{wordData.word}
-			<span class="text-sm font-extralight text-gray-400">{wordData.pronunciation}</span>
+			{word.value}
+			<span class="text-sm font-extralight text-gray-400">{word.pronunciation}</span>
 		</p>
 	</td>
 
 	<td class="align-top p-1 text-sm">
 		<ol class="list-decimal">
-			{#each wordData.definitions.slice(0, 3) as definition}
+			{#each word.definitions.slice(0, 3) as definition}
 				<li>{definition}</li>
 			{/each}
 		</ol>

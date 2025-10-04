@@ -60,8 +60,8 @@
 	{#if isDataLoaded}
 		<section>
 			<table class="w-full">
-				{#each data.wordsData as wordData}
-					<WordSection {wordData} />
+				{#each data.words as word}
+					<WordSection {word} />
 				{/each}
 			</table>
 		</section>

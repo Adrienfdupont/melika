@@ -4,11 +4,11 @@
 	import { onMount } from 'svelte';
 	import type { HistoryResearch } from '$lib/types/HistoryResearch';
 	import Icon from '@iconify/svelte';
-	import type { WordData } from '$lib/types/WordData';
+	import type { Word } from '$lib/types/Word';
 	import FavouriteCard from '$lib/components/FavouriteCard.svelte';
 
 	let historyResearches: HistoryResearch[] = [];
-	let favouriteWords: WordData[] = [];
+	let favouriteWords: Word[] = [];
 	let showHistory = true;
 	let showFavourites = false;
 
@@ -22,8 +22,8 @@
 		showFavourites = !showFavourites;
 	}
 
-	function handleRemove(event: CustomEvent<{ wordData: WordData }>) {
-		favouriteWords = favouriteWords.filter((w) => w.word !== event.detail.wordData.word);
+	function handleRemove(event: CustomEvent<{ word: Word }>) {
+		favouriteWords = favouriteWords.filter((w) => w.word !== event.detail.word.word);
 	}
 </script>
 
@@ -66,8 +66,8 @@
 			{#if favouriteWords.length === 0}
 				<p class="text-center text-xl m-10">You haven't pinned any word yet</p>
 			{/if}
-			{#each favouriteWords as wordData}
-				<FavouriteCard {wordData} on:remove={handleRemove} />
+			{#each favouriteWords as word}
+				<FavouriteCard {word} on:remove={handleRemove} />
 			{/each}
 		</div>
 	{/if}
