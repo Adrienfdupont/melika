@@ -1,4 +1,5 @@
 import type { HistoryResearch } from '$lib/types/HistoryResearch';
+import type { WordData } from './types/WordData';
 
 export function fadeButton(button: HTMLButtonElement) {
 	if (button.classList.contains('animate-fade')) {
@@ -33,29 +34,29 @@ export function extendCard(event: MouseEvent) {
 	cardDivs?.forEach((p) => p.classList.toggle('whitespace-nowrap'));
 }
 
-export function addWordToFavourites(word: Word) {
+export function addWordToFavourites(word: WordData) {
 	const favourites = localStorage.getItem('favourites');
 	const newFavourites = favourites ? JSON.parse(favourites) : [];
 	newFavourites.push(word);
 	localStorage.setItem('favourites', JSON.stringify(newFavourites));
 }
 
-export function removeWordFromFavourites(word: Word) {
+export function removeWordFromFavourites(word: WordData) {
 	const favourites = localStorage.getItem('favourites');
 	const newFavourites = favourites ? JSON.parse(favourites) : [];
-	const index = newFavourites.findIndex((fav: Word) => fav.match === word.match);
+	const index = newFavourites.findIndex((fav: WordData) => fav.word === word.word);
 	newFavourites.splice(index, 1);
 	localStorage.setItem('favourites', JSON.stringify(newFavourites));
 }
 
-export function getFavourites(): Word[] {
+export function getFavourites(): WordData[] {
 	const favourites = localStorage.getItem('favourites');
 	return favourites ? JSON.parse(favourites).reverse() : [];
 }
 
-export function wordIsInFavourites(word: Word): boolean {
+export function wordIsInFavourites(word: WordData): boolean {
 	const favourites = getFavourites();
-	return favourites.some((fav: Word) => fav.match === word.match);
+	return favourites.some((fav: WordData) => fav.word === word.word);
 }
 
 export function isOverflowing(element: HTMLDivElement): boolean {

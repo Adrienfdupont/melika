@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { Word } from '$lib/types/Word';
+	import type { WordData } from '$lib/types/WordData';
 	import { extendCard, removeWordFromFavourites } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 
-	export let word: Word;
+	export let wordData: WordData;
 	const dispatch = createEventDispatcher();
 
 	function handleRemove() {
-		removeWordFromFavourites(word);
-		dispatch('remove', { word });
+		removeWordFromFavourites(wordData);
+		dispatch('remove', { wordData });
 	}
 </script>
 
@@ -20,9 +20,9 @@
 	tabindex="0"
 >
 	<div class="whitespace-nowrap overflow-hidden text-ellipsis">
-		<span>{word.match}</span>
-		<span class="text-sm font-extralight text-gray-400 mr-2">{word.pronunciations.join(', ')}</span>
-		<span>{word.definitions.join(', ')}</span>
+		<span>{wordData.word}</span>
+		<span class="text-sm font-extralight text-gray-400 mr-2">{wordData.pronunciation}</span>
+		<span>{wordData.definitions.join(', ')}</span>
 	</div>
 
 	<div class="flex items-center ml-2">
