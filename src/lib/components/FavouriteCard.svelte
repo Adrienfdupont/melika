@@ -1,11 +1,19 @@
 <script lang="ts">
 	import type { WordData } from '$lib/types/WordData';
-	import { extendCard, removeWordFromFavourites } from '$lib/utils';
+	import { extendCard } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	export let wordData: WordData;
 	const dispatch = createEventDispatcher();
+
+	function removeWordFromFavourites(word: WordData) {
+		const favourites = localStorage.getItem('favourites');
+		const newFavourites = favourites ? JSON.parse(favourites) : [];
+		const index = newFavourites.findIndex((fav: WordData) => fav.word === word.word);
+		newFavourites.splice(index, 1);
+		localStorage.setItem('favourites', JSON.stringify(newFavourites));
+	}
 
 	function handleRemove() {
 		removeWordFromFavourites(wordData);

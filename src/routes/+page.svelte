@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Header from '$lib/components/Header.svelte';
 	import { getFavourites, getTranslationHistory } from '$lib/utils';
 	import HistoryCard from '$lib/components/HistoryCard.svelte';
 	import { onMount } from 'svelte';
@@ -27,8 +26,6 @@
 		favouriteWords = favouriteWords.filter((w) => w.word !== event.detail.wordData.word);
 	}
 </script>
-
-<Header />
 
 <nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full bg-secondary text-xl py-2">
 	<button

@@ -1,26 +1,46 @@
 <script lang="ts">
-	import Header from '$lib/components/Header.svelte';
 	import { onMount } from 'svelte';
 	import WordSection from '$lib/components/WordSection.svelte';
-	import { fadeButton, addTranslationToHistory } from '$lib/utils';
+	import { getTranslationHistory } from '$lib/utils';
+	import type { HistoryResearch } from '$lib/types/HistoryResearch';
 	import Icon from '@iconify/svelte';
 	import type { TranslationResult } from '$lib/types/TranslationResult';
 
 	export let data: TranslationResult;
 	let isDataLoaded = false;
 
+	onMount(async () => {
+		isDataLoaded = true;
+		addTranslationToHistory(data.input, data.translation);
+	});
+
+	function fadeButton(button: HTMLButtonElement) {
+		if (button.classList.contains('animate-fade')) {
+			button.classList.remove('animate-fade');
+		}
+		setTimeout(() => {
+			button.classList.add('animate-fade');
+		}, 10);
+	}
+
 	function copyTranslationToClipboard() {
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
 		fadeButton(document.querySelector('#copy-button')!);
 	}
 
-	onMount(async () => {
-		isDataLoaded = true;
-		addTranslationToHistory(data.input, data.translation);
-	});
+	function addTranslationToHistory(input: string, translation: string) {
+		const history = getTranslationHistory();
+		const index = history.findIndex((research: HistoryResearch) => research.input === input);
+		if (index !== -1) {
+			history.splice(index, 1);
+		}
+		if (history.length >= 50) {
+			history.shift();
+		}
+		history.push({ input, translation });
+		localStorage.setItem('translationHistory', JSON.stringify(history));
+	}
 </script>
-
-<Header />
 
 <main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-2/3 xl:w-1/2">
 	<div>
