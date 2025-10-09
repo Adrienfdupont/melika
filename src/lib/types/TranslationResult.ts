@@ -1,7 +1,7 @@
-import type { WordData } from './WordData';
+import type { Word } from './Word';
 
 export interface TranslationResult {
 	input: string;
 	translation: string;
-	wordsData: WordData[];
+	words: Word[];
 }

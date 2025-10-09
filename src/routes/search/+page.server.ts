@@ -3,7 +3,7 @@ import translate from 'translate';
 import { createClient, type RedisClientType } from 'redis';
 import type { PageServerLoad } from './$types';
 import type { TranslationResult } from '$lib/types/TranslationResult';
-import type { WordData } from '$lib/types/WordData';
+import type { Word } from '$lib/types/Word';
 import { REDIS_URL } from '$env/static/private';
 
 let redisClient: RedisClientType | null = null;
@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 	await initRedisClient();
 	const input = decodeURIComponent(url.searchParams.get('input') ?? '');
 	const translation = await translate(input, { from: 'en', to: 'fa' });
-	const wordsData: WordData[] = [];
+	const words: Word[] = [];
 
 	for (const word of translation.split(' ')) {
 		let wordCache: string | null = null;
@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 			wordCache = await redisClient.get(word);
 		}
 		if (wordCache) {
-			wordsData.push(JSON.parse(wordCache));
+			words.push(JSON.parse(wordCache));
 		} else {
 			for (let i = 0; i < 3; i++) {
 				const pattern = word.slice(0, word.length - i);
@@ -32,19 +32,19 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 					if (redisClient) {
 						await redisClient.set(word, JSON.stringify(wordData));
 					}
-					wordsData.push(wordData);
+					words.push(wordData);
 					break;
 				}
 			}
 		}
 	}
 
-	return { input, translation, wordsData };
+	return { input, translation, words };
 };
 
-function extractWordData(match: string, sectionContent: string): WordData {
-	const wordData: WordData = {
-		word: match,
+function extractWordData(match: string, sectionContent: string): Word {
+	const wordData: Word = {
+		value: match,
 		pronunciation: '',
 		definitions: [],
 		lastUpdate: Date.now()
