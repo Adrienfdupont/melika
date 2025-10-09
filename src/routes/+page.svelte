@@ -23,7 +23,7 @@
 	}
 
 	function handleRemove(event: CustomEvent<{ word: Word }>) {
-		favouriteWords = favouriteWords.filter((w) => w.word !== event.detail.word.word);
+		favouriteWords = favouriteWords.filter((w) => w.value !== event.detail.word.value);
 	}
 </script>
 
