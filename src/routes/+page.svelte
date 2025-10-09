@@ -27,7 +27,7 @@
 	}
 </script>
 
-<nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex sticky w-full bg-secondary text-xl py-2">
+<nav class="container mx-auto lg:w-2/3 xl:w-1/2 flex w-full bg-secondary text-xl py-2 lg:px-2">
 	<button
 		on:click={switchTabs}
 		disabled={showHistory}

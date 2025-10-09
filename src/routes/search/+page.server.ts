@@ -23,7 +23,10 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 			words.push(JSON.parse(wordCache));
 		} else {
 			for (let i = 0; i < 3; i++) {
-				const pattern = word.slice(0, word.length - i);
+				const pattern = word
+					.slice(0, word.length - i)
+					.toLowerCase()
+					.replace(/[^a-z]/g, '');
 				const res = await fetch(`https://en.wiktionary.org/wiki/${pattern}`);
 
 				if (res.status === 200) {
@@ -69,7 +72,7 @@ function extractWordData(match: string, sectionContent: string): Word {
 
 			for (const definitionLine of definitionList) {
 				const toRemove = definitionLine.querySelectorAll(
-					'ul, dl, .HQToggle, .nyms-toggle, .wikt-quote-container, .nyms'
+					'ul, dl, .HQToggle, .nyms-toggle, .wikt-quote-container, .nyms, style'
 				);
 				Array.from(toRemove).forEach((n: Element) => n.remove());
 
