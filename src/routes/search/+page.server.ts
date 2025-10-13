@@ -23,10 +23,9 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 			words.push(JSON.parse(wordCache));
 		} else {
 			for (let i = 0; i < 3; i++) {
-				const pattern = word
-					.slice(0, word.length - i)
-					.toLowerCase()
-					.replace(/[^a-z]/g, '');
+				let pattern = word.slice(0, word.length - i);
+				pattern = pattern.toLowerCase();
+				pattern.replace(/[^a-z]/g, '');
 				const res = await fetch(`https://en.wiktionary.org/wiki/${pattern}`);
 
 				if (res.status === 200) {
