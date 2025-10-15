@@ -3,7 +3,7 @@ import type { Word } from './types/Word';
 
 export function getTranslationHistory(): HistoryResearch[] {
 	const history = localStorage.getItem('translationHistory');
-	return history ? JSON.parse(history).reverse() : [];
+	return history ? JSON.parse(history) : [];
 }
 
 export function extendCard(event: MouseEvent) {

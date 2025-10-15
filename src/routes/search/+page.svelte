@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import WordSection from '$lib/components/WordSection.svelte';
-	import { getTranslationHistory } from '$lib/utils';
-	import type { HistoryResearch } from '$lib/types/HistoryResearch';
 	import Icon from '@iconify/svelte';
 	import type { TranslationResult } from '$lib/types/TranslationResult';
+	import type { HistoryResearch } from '$lib/types/HistoryResearch';
+	import { getTranslationHistory } from '$lib/utils';
 
 	export let data: TranslationResult;
 	let isDataLoaded = false;
@@ -28,16 +28,16 @@
 		fadeButton(document.querySelector('#copy-button')!);
 	}
 
-	function addTranslationToHistory(input: string, translation: string) {
+	export function addTranslationToHistory(input: string, translation: string): void {
 		const history = getTranslationHistory();
-		const index = history.findIndex((research: HistoryResearch) => research.input === input);
-		if (index !== -1) {
-			history.splice(index, 1);
+		if (history.length >= 20) {
+			history.pop();
 		}
-		if (history.length >= 50) {
-			history.shift();
-		}
-		history.push({ input, translation });
+		const newEntry: HistoryResearch = {
+			input,
+			translation
+		};
+		history.unshift(newEntry);
 		localStorage.setItem('translationHistory', JSON.stringify(history));
 	}
 </script>
