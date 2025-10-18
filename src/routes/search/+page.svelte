@@ -29,9 +29,9 @@
 	}
 
 	export function addTranslationToHistory(input: string, translation: string): void {
-		const history = getTranslationHistory();
+		let history = getTranslationHistory();
 		if (history.length >= 20) {
-			history.pop();
+			history = history.slice(0, 19);
 		}
 		const newEntry: HistoryResearch = {
 			input,
