@@ -79,7 +79,7 @@
 	</td>
 
 	<td class="text-right text-xl align-top p-1">
-		<button on:click={togglePinnedWord} class="hover:opacity-50">
+		<button on:click={togglePinnedWord} class="opacity-80 hover:opacity-100">
 			<Icon icon="mdi:pin" class={isPinned ? 'text-primary' : 'text-gray-500'} />
 		</button>
 	</td>
