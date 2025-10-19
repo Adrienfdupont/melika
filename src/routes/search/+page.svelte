@@ -4,7 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import type { TranslationResult } from '$lib/types/TranslationResult';
 	import type { HistoryResearch } from '$lib/types/HistoryResearch';
-	import { getTranslationHistory } from '$lib/utils';
+	import { displayToast, getTranslationHistory } from '$lib/utils';
 
 	export let data: TranslationResult;
 	let isDataLoaded = false;
@@ -27,6 +27,7 @@
 		console.log('Copy button clicked');
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
 		fadeButton(document.querySelector('#copy-button')!);
+		displayToast('Word copied to clipboard');
 	}
 
 	export function addTranslationToHistory(input: string, translation: string): void {
@@ -45,13 +46,13 @@
 
 <main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-2/3 xl:w-1/2">
 	<div>
-		<section class="text-2xl p-2 relative pr-12 bg-primary-bis xl:min-w-96">
+		<section class="text-2xl p-2 relative pr-12 bg-primary-bis xl:min-w-96 rounded">
 			<p>{data.input}</p>
 			<p id="textToSearch">{data.translation}</p>
 			<button
 				id="copy-button"
 				class="absolute right-2 bottom-2 opacity-80 hover:opacity-100"
-				on:mousedown={copyTranslationToClipboard}
+				on:click={copyTranslationToClipboard}
 			>
 				<Icon icon="mdi:content-copy" />
 			</button>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Word } from '../types/Word';
 	import Icon from '@iconify/svelte';
-	import { getFavourites } from '$lib/utils';
+	import { getFavourites, displayToast } from '$lib/utils';
 
 	export let word: Word;
 
@@ -10,24 +10,6 @@
 	function wordIsInFavourites(word: Word): boolean {
 		const favourites = getFavourites();
 		return favourites.some((fav: Word) => fav.value === word.value);
-	}
-
-	function displayToast(message: string) {
-		const existingToasts = document.querySelectorAll('.toast');
-		existingToasts.forEach((toast) => toast.remove());
-
-		const toast = document.createElement('div');
-		toast.textContent = message;
-		toast.className =
-			'toast fixed bottom-4 left-1/2 text-center transform -translate-x-1/2 bg-primary-bis text-white py-2 px-4 rounded transition-opacity duration-500 w-full max-w-xs';
-		document.body.appendChild(toast);
-
-		setTimeout(() => {
-			toast.classList.add('opacity-0');
-			setTimeout(() => {
-				toast.remove();
-			}, 500);
-		}, 3000);
 	}
 
 	function addWordToFavourites(word: Word) {
@@ -60,9 +42,28 @@
 			displayToast('Word has been unpinned');
 		}
 	}
+
+	function toggleDefinitions(event: MouseEvent) {
+		const target = event.target as HTMLElement;
+		const button = target.closest('button') as HTMLButtonElement;
+		const row = button.closest('tr') as HTMLTableRowElement;
+		const hiddenDefinitions = row.querySelectorAll('li.item');
+
+		hiddenDefinitions.forEach((definition) => {
+			definition.classList.toggle('hidden');
+		});
+
+		button.classList.toggle('rotate-180');
+	}
 </script>
 
 <tr>
+	<td class="text-right text-xl align-top pt-2">
+		<button on:click={togglePinnedWord} class="opacity-80 hover:opacity-100">
+			<Icon icon="mdi:pin" class={isPinned ? 'text-primary' : 'text-gray-500'} />
+		</button>
+	</td>
+
 	<td class="align-top text-xl p-1 w-1/2">
 		<p>
 			{word.value}
@@ -72,15 +73,18 @@
 
 	<td class="align-top p-1 text-sm">
 		<ol class="list-decimal">
-			{#each word.definitions.slice(0, 3) as definition}
-				<li>{definition}</li>
+			<li>{word.definitions[0]}</li>
+			{#each word.definitions.slice(1, word.definitions.length) as definition}
+				<li class="item hidden">{definition}</li>
 			{/each}
 		</ol>
 	</td>
 
-	<td class="text-right text-xl align-top p-1">
-		<button on:click={togglePinnedWord} class="opacity-80 hover:opacity-100">
-			<Icon icon="mdi:pin" class={isPinned ? 'text-primary' : 'text-gray-500'} />
-		</button>
+	<td class="text-right text-2xl align-top">
+		{#if word.definitions.length > 1}
+			<button on:click={toggleDefinitions} class="opacity-80 hover:opacity-100">
+				<Icon icon="mdi:expand-more" />
+			</button>
+		{/if}
 	</td>
 </tr>
