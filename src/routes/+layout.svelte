@@ -1,12 +1,29 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import '../app.css';
+	import { onMount } from 'svelte';
 
 	let textToSearch: string;
+	let sourceLang: string;
+	let targetLang: string;
+	let placeholderText: string;
+	const englishPlaceholder = 'Translate into Persian';
+	const persianPlaceholder = 'به انگلیسی ترجمه کنید';
+
+	onMount(() => {
+		sourceLang = localStorage.sourceLang || 'en';
+		targetLang = localStorage.targetLang || 'fa';
+		placeholderText = targetLang === 'fa' ? englishPlaceholder : persianPlaceholder;
+	});
 
 	function research() {
 		if (textToSearch.length > 0) {
-			window.location.href = `/search?input=${encodeURIComponent(textToSearch)}`;
+			const url = new URL(window.location.href);
+			url.pathname = '/search';
+			url.searchParams.set('input', textToSearch);
+			url.searchParams.set('from', sourceLang);
+			url.searchParams.set('to', targetLang);
+			window.location.href = url.toString();
 		}
 		document.querySelector('#spinner-modal')?.classList.remove('hidden');
 		document.body.style.overflow = 'hidden';
@@ -16,6 +33,13 @@
 		if (window.location.pathname !== '/') {
 			window.location.href = '/';
 		}
+	}
+
+	function switchLanguages() {
+		[sourceLang, targetLang] = [targetLang, sourceLang];
+		localStorage.sourceLang = sourceLang;
+		localStorage.targetLang = targetLang;
+		placeholderText = targetLang === 'fa' ? englishPlaceholder : persianPlaceholder;
 	}
 </script>
 
@@ -27,12 +51,17 @@
 			bind:value={textToSearch}
 			on:keydown={(e) => e.key === 'Enter' && research()}
 			type="text"
-			placeholder="Translate into Persian..."
+			placeholder={placeholderText}
 			class="w-full h-full px-4 outline-none bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white placeholder-white/70 shadow-md transition duration-200 ease-in-out focus:bg-white/20 focus:ring-1 focus:ring-white/30"
 		/>
-		<button on:click={navigateToHome} class="absolute right-4 hover:opacity-50">
-			<Icon icon="mdi:home-outline" class="text-4xl" />
-		</button>
+		<div class="absolute right-4 flex items-center">
+			<button on:click={switchLanguages} class="opacity-50 hover:opacity-100">
+				<Icon icon="mdi:circular-arrows" class="text-4xl" />
+			</button>
+			<button on:click={navigateToHome} class="opacity-50 hover:opacity-100">
+				<Icon icon="mdi:home-outline" class="text-4xl" />
+			</button>
+		</div>
 	</header>
 
 	<div id="spinner-modal" class="fixed inset-0 bg-black opacity-50 z-80 hidden">
