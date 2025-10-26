@@ -1,0 +1,16 @@
+services:
+  melika:
+    image: ${IMAGE_NAME}
+    ports:
+      - ${PORT_MELIKA}:3000
+    container_name: melika
+    depends_on:
+      - redis
+    restart: always
+  redis:
+    image: redis:8-alpine
+    ports:
+      - ${PORT_REDIS}:6379
+    container_name: redis-melika
+    volumes:
+      - ./redis-data:/data

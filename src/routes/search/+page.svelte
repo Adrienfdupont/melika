@@ -27,11 +27,12 @@
 		console.log('Copy button clicked');
 		navigator.clipboard.writeText(document.querySelector('#textToSearch')?.textContent ?? '');
 		fadeButton(document.querySelector('#copy-button')!);
-		displayToast('Word copied to clipboard');
+		displayToast('Translation copied to clipboard');
 	}
 
 	export function addTranslationToHistory(input: string, translation: string): void {
 		let history = getTranslationHistory();
+		history = history.filter((entry) => entry.input !== input);
 		if (history.length >= 20) {
 			history = history.slice(0, 19);
 		}
