@@ -12,8 +12,7 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 	await initRedisClient();
 	const input = decodeURIComponent(url.searchParams.get('input') ?? '');
 	const sourceLang = url.searchParams.get('from') ?? 'en';
-	const targetLang = url.searchParams.get('to') ?? 'fa';
-	const translation = await translate(input, { from: sourceLang, to: targetLang });
+	const translation = await translate(input, { from: sourceLang, to: 'fa' });
 	const words: Word[] = [];
 
 	for (const word of translation.split(' ')) {
@@ -32,8 +31,7 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 
 				if (res.status === 200) {
 					const rawPage = await res.text();
-					const lang = targetLang === 'en' ? 'English' : 'Persian';
-					const wordData = extractWordData(pattern, rawPage, lang);
+					const wordData = extractWordData(pattern, rawPage);
 					if (redisClient) {
 						await redisClient.set(word, JSON.stringify(wordData));
 					}
@@ -47,7 +45,7 @@ export const load: PageServerLoad = async ({ url }: { url: URL }): Promise<Trans
 	return { input, translation, words };
 };
 
-function extractWordData(match: string, sectionContent: string, lang: string): Word {
+function extractWordData(match: string, sectionContent: string): Word {
 	const wordData: Word = {
 		value: match,
 		pronunciation: '',
@@ -57,7 +55,7 @@ function extractWordData(match: string, sectionContent: string, lang: string): W
 
 	const { JSDOM } = jsdom;
 	const dom = new JSDOM(sectionContent);
-	const sectionTitle = dom.window.document.querySelector(`#${lang}`)?.parentElement;
+	const sectionTitle = dom.window.document.querySelector(`#Persian`)?.parentElement;
 	let nextElement = sectionTitle?.nextElementSibling;
 
 	while (nextElement) {
