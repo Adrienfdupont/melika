@@ -64,7 +64,7 @@
 		<section>
 			<table class="w-full">
 				{#each data.words as word}
-					<WordSection {word} />
+					<WordSection {word} dispatchable={false} />
 				{/each}
 			</table>
 		</section>

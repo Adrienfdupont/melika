@@ -2,8 +2,11 @@
 	import type { Word } from '../types/Word';
 	import Icon from '@iconify/svelte';
 	import { getFavourites, displayToast } from '$lib/utils';
+	import { createEventDispatcher } from 'svelte';
 
 	export let word: Word;
+	export let dispatchable: boolean;
+	const dispatch = createEventDispatcher();
 
 	let isPinned = wordIsInFavourites(word);
 
@@ -25,6 +28,9 @@
 		const index = newFavourites.findIndex((fav: Word) => fav.value === word.value);
 		newFavourites.splice(index, 1);
 		localStorage.setItem('favourites', JSON.stringify(newFavourites));
+		if (dispatchable) {
+			dispatch('remove', { word });
+		}
 	}
 
 	function togglePinnedWord(event: MouseEvent) {
@@ -64,14 +70,14 @@
 		</button>
 	</td>
 
-	<td class="align-top text-xl p-1 w-1/2">
+	<td class="align-top text-xl p-1">
 		<p>
 			{word.value}
 			<span class="text-sm font-extralight text-gray-400">{word.pronunciation}</span>
 		</p>
 	</td>
 
-	<td class="align-top p-1 text-sm">
+	<td class="align-top p-1 text-sm w-1/2">
 		<ol class="list-decimal">
 			<li>{word.definitions[0]}</li>
 			{#each word.definitions.slice(1, word.definitions.length) as definition}

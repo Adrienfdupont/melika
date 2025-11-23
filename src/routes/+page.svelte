@@ -5,7 +5,7 @@
 	import type { HistoryResearch } from '$lib/types/HistoryResearch';
 	import Icon from '@iconify/svelte';
 	import type { Word } from '$lib/types/Word';
-	import FavouriteCard from '$lib/components/FavouriteCard.svelte';
+	import WordSection from '$lib/components/WordSection.svelte';
 
 	let historyResearches: HistoryResearch[] = [];
 	let favouriteWords: Word[] = [];
@@ -66,9 +66,11 @@
 			{#if favouriteWords.length === 0}
 				<p class="text-center text-xl m-10">You haven't pinned any word yet</p>
 			{/if}
-			{#each favouriteWords as word}
-				<FavouriteCard {word} on:remove={handleRemove} />
-			{/each}
+			<table class="w-full">
+				{#each favouriteWords as word}
+					<WordSection {word} dispatchable={true} on:remove={handleRemove} />
+				{/each}
+			</table>
 		</div>
 	{/if}
 </main>
