@@ -52,7 +52,7 @@
 	function toggleDefinitions(event: MouseEvent) {
 		const target = event.target as HTMLElement;
 		const button = target.closest('button') as HTMLButtonElement;
-		const row = button.closest('tr') as HTMLTableRowElement;
+		const row = button.closest('.word-section') as HTMLDivElement;
 		const hiddenDefinitions = row.querySelectorAll('li.item');
 
 		hiddenDefinitions.forEach((definition) => {
@@ -63,36 +63,40 @@
 	}
 </script>
 
-<tr>
-	<td class="text-2xl align-top p-1 m-1">
-		<button on:click={togglePinnedWord} class="opacity-80 hover:opacity-100">
-			<Icon icon="mdi:pin" class={isPinned ? 'text-primary' : 'text-gray-500'} />
-		</button>
-	</td>
-
-	<td class="align-top text-xl p-1 m-1">
-		<p>
-			{word.value}
-			<span class="text-sm font-extralight text-gray-400 text-nowrap align-top"
-				>{word.pronunciation}</span
-			>
-		</p>
-	</td>
-
-	<td class="align-top text-sm w-1/2 p-1 m-1">
-		<ol class="list-decimal list-inside">
-			<li>{word.definitions[0]}</li>
-			{#each word.definitions.slice(1, word.definitions.length) as definition}
-				<li class="item hidden">{definition}</li>
-			{/each}
-		</ol>
-	</td>
-
-	<td class="text-3xl align-top p-1 m-1">
-		{#if word.definitions.length > 1}
-			<button on:click={toggleDefinitions} class="opacity-80 hover:opacity-100">
-				<Icon icon="mdi:expand-more" />
+<div class="flex justify-between bg-primary-bis rounded gap-3 p-4 m-2 word-section">
+	<div class="flex justify-start w-1/3 gap-2">
+		<div class="text-2xl align-top">
+			<button on:click={togglePinnedWord} class="opacity-80 hover:opacity-100">
+				<Icon icon="mdi:pin" class={isPinned ? 'text-primary' : 'text-gray-500'} />
 			</button>
-		{/if}
-	</td>
-</tr>
+		</div>
+
+		<div class="align-top text-xl">
+			<p>
+				{word.value}
+				<span class="text-sm font-extralight text-gray-400 text-nowrap align-top"
+					>{word.pronunciation}</span
+				>
+			</p>
+		</div>
+	</div>
+
+	<div class="flex justify-between w-2/3 gap-2">
+		<div class="align-top text-sm">
+			<ol class="list-decimal list-inside">
+				<li>{word.definitions[0]}</li>
+				{#each word.definitions.slice(1, word.definitions.length) as definition}
+					<li class="item hidden mt-2">{definition}</li>
+				{/each}
+			</ol>
+		</div>
+
+		<div class="text-3xl align-top">
+			{#if word.definitions.length > 1}
+				<button on:click={toggleDefinitions} class="opacity-80 hover:opacity-100">
+					<Icon icon="mdi:expand-more" />
+				</button>
+			{/if}
+		</div>
+	</div>
+</div>

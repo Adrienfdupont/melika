@@ -49,7 +49,7 @@
 	</button>
 </nav>
 
-<main class="container mx-auto lg:w-2/3 xl:w-1/2 pb-1">
+<main class="container mx-auto lg:w-2/3 xl:w-1/2 pb-2">
 	{#if showHistory}
 		<div>
 			{#if historyResearches.length === 0}
@@ -65,12 +65,11 @@
 		<div>
 			{#if favouriteWords.length === 0}
 				<p class="text-center text-xl m-10">You haven't pinned any word yet</p>
-			{/if}
-			<table class="w-full">
+			{:else}
 				{#each favouriteWords as word}
 					<WordSection {word} dispatchable={true} on:remove={handleRemove} />
 				{/each}
-			</table>
+			{/if}
 		</div>
 	{/if}
 </main>

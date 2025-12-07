@@ -45,28 +45,24 @@
 	}
 </script>
 
-<main class="p-2 flex flex-col gap-y-8 container mx-auto lg:w-2/3 xl:w-1/2">
-	<div>
-		<section class="text-2xl p-2 relative pr-12 bg-primary-bis xl:min-w-96 rounded">
-			<p>{data.input}</p>
-			<p id="textToSearch">{data.translation}</p>
-			<button
-				id="copy-button"
-				class="absolute right-2 bottom-2 opacity-80 hover:opacity-100"
-				on:click={copyTranslationToClipboard}
-			>
-				<Icon icon="mdi:content-copy" />
-			</button>
-		</section>
+<main class="flex flex-col gap-y-8 container mx-auto lg:w-2/3 xl:w-1/2">
+	<div class="text-2xl p-4 m-2 relative pr-12 bg-primary-bis xl:min-w-96 rounded">
+		<p>{data.input}</p>
+		<p id="textToSearch">{data.translation}</p>
+		<button
+			id="copy-button"
+			class="absolute right-2 bottom-2 opacity-80 hover:opacity-100"
+			on:click={copyTranslationToClipboard}
+		>
+			<Icon icon="mdi:content-copy" />
+		</button>
 	</div>
 
 	{#if isDataLoaded}
-		<section>
-			<table class="w-full">
-				{#each data.words as word}
-					<WordSection {word} dispatchable={false} />
-				{/each}
-			</table>
-		</section>
+		<div>
+			{#each data.words as word}
+				<WordSection {word} dispatchable={false} />
+			{/each}
+		</div>
 	{/if}
 </main>
