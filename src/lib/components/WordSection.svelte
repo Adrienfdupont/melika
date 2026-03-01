@@ -9,6 +9,7 @@
 	const dispatch = createEventDispatcher();
 
 	let isPinned = wordIsInFavourites(word);
+	let definitionsExpanded = false;
 
 	function wordIsInFavourites(word: Word): boolean {
 		const favourites = getFavourites();
@@ -52,13 +53,7 @@
 	function toggleDefinitions(event: MouseEvent) {
 		const target = event.target as HTMLElement;
 		const button = target.closest('button') as HTMLButtonElement;
-		const row = button.closest('.word-section') as HTMLDivElement;
-		const hiddenDefinitions = row.querySelectorAll('li.item');
-
-		hiddenDefinitions.forEach((definition) => {
-			definition.classList.toggle('hidden');
-		});
-
+		definitionsExpanded = !definitionsExpanded;
 		button.classList.toggle('rotate-180');
 	}
 </script>
@@ -85,18 +80,45 @@
 		<div class="align-top text-sm">
 			<ol class="list-decimal list-inside">
 				<li>{word.definitions[0]}</li>
-				{#each word.definitions.slice(1, word.definitions.length) as definition}
-					<li class="item hidden mt-2">{definition}</li>
+				{#each word.definitions.slice(1, word.definitions.length) as definition (definition)}
+					<li class="item mt-2 overflow-hidden" class:expanded={definitionsExpanded}>
+						<div class="definition-content">{definition}</div>
+					</li>
 				{/each}
 			</ol>
 		</div>
 
 		<div class="text-3xl align-top">
 			{#if word.definitions.length > 1}
-				<button on:click={toggleDefinitions} class="opacity-80 hover:opacity-100">
+				<button
+					on:click={toggleDefinitions}
+					class="opacity-80 hover:opacity-100 transition-transform duration-300"
+				>
 					<Icon icon="mdi:expand-more" />
 				</button>
 			{/if}
 		</div>
 	</div>
 </div>
+
+<style>
+	.item {
+		max-height: 0;
+		opacity: 0;
+		transform: translateY(-10px);
+		transition:
+			max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.3s ease-in-out,
+			transform 0.3s ease-in-out;
+	}
+
+	.item.expanded {
+		max-height: 500px;
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.definition-content {
+		padding-bottom: 2px;
+	}
+</style>
